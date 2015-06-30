@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
   def hello
     render :text => "Hello, world! Welcome to the NUDS Casebook"
   end
+
+  def index
+    render 'static_pages/index'
+  end
 end
