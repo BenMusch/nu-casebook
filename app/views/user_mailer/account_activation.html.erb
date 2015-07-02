@@ -6,3 +6,10 @@
 
 <%= link_to "Activate", edit_account_activation_url(@user.activation_token,
                                                     email: @user.email) %>
+
+<p>
+  If that link doesn't work, copy and pase this url:
+</p>
+
+<p><%= edit_account_activation_url(@user.activation_token,
+email: @user.email) %></p>
