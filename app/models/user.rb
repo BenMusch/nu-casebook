@@ -3,14 +3,15 @@ class NotSethValidator < ActiveModel::EachValidator
     if value == 'goldstein.se@husky.neu.edu'
       person.errors[attribute] << "can't belong to a traitor. Nice try, Seth."
     elsif !(value =~ /\A(\w)+\.(\w)+@husky.neu.edu/i)
-      person.errors[attribute] << "must be a @husky.neu.edu address"
+      person.errors[attribute] << "is not a @husky.neu.edu address"
     end
   end
 end
 
 class User < ActiveRecord::Base
-  attr_accessor :remember_token
-  before_save { self.email.downcase! }
+  attr_accessor :remember_token, :activation_token
+  before_save   :downcase_email
+  before_create :create_activation_digest
   validates :email, presence: true, length: { maximum: 299 },
                     uniqueness: {case_sensitive: false },
                     not_seth: true
@@ -41,8 +42,33 @@ class User < ActiveRecord::Base
   end
 
   # Returns true if the given token matches the digest
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
+
+  # Activates this user
+  def activate
+    update_attribute(:activated,    true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  # Sends an activation email to this user
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  private
+
+    # Makes the email all lowercase
+    def downcase_email
+      self.email.downcase!
+    end
+
+    # Creates and assigns the activation token and digest
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 end

@@ -5,10 +5,19 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def index
-    render 'static_pages/index'
+    if logged_in?
+      redirect_to secret_path
+    else
+      render 'static_pages/index'
+    end
   end
 
   def secret
-    render 'static_pages/secret'
+    if logged_in?
+      render 'static_pages/secret'
+    else
+      flash[:danger] = "You must be logged in to see this page"
+      redirect_to login_path
+    end
   end
 end
