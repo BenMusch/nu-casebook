@@ -1,3 +1,7 @@
 user:
   email: user@example.com
   password_digest: <%= User.digest('password') %>
+  activated: true
+  activation_digest: <%= User.digest(User.new_token) %>
+  remember_digest: <%= User.digest(User.new_token) %>
+  activated_at: <%= Time.zone.now %>

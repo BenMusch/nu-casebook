@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
     if logged_in?
       render 'static_pages/secret'
     else
-      flash[:danger] = "You must be logged in to see this page"
-      redirect_to login_path
+      force_login
     end
   end
 end
