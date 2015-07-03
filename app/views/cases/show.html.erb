@@ -1,0 +1,20 @@
+<% provide(:title, @case.title) %>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= @case.title %></h1>
+    <%= link_to "View Case", @case.link, target: "_blank",
+                class: "btn btn-primary" %>
+    <%= link_to "Delete Case", @case, class: "btn btn-danger",
+                method: :delete, data: { confirm: "Are you sure?" } %>
+
+    <br/><br/>
+
+    <p><b>Case statement: </b><%= @case.case_statement %></p>
+    <p><b>Opp choice?</b> <%= @case.opp_choice? ? "Yes" : "No" %></p>
+    <br/>
+    <br/>
+
+  </div>
+</div>

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
-  validates :email, presence: true, length: { maximum: 299 },
+  validates :email, presence: true, length: { maximum: 255 },
                     uniqueness: {case_sensitive: false },
                     not_seth: true
   has_secure_password

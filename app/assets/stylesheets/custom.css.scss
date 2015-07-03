@@ -3,6 +3,8 @@
 
 /* mixins and vars */
 
+$main-red: #ed1c24;
+
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -30,7 +32,6 @@ textarea {
 /* header */
 
 header {
-  height: 50px;
   padding-top: 15px;
   #logo {
     text-transform: uppercase;

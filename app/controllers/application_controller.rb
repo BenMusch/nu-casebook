@@ -6,17 +6,9 @@ class ApplicationController < ActionController::Base
 
   def index
     if logged_in?
-      redirect_to secret_path
+      redirect_to cases_url
     else
       render 'static_pages/index'
-    end
-  end
-
-  def secret
-    if logged_in?
-      render 'static_pages/secret'
-    else
-      force_login
     end
   end
 end

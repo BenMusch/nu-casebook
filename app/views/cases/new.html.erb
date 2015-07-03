@@ -1,0 +1,26 @@
+<% provide(:title, "New case") %>
+<h1>New case</h1>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_for @case do |f| %>
+        <%= render 'shared/case_error_messages' %>
+
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+
+        <%= f.label :link_to_case %>
+        <%= f.text_field :link, class: "form-control" %>
+
+        <%= f.label :case_statement %>
+        <%= f.text_area :case_statement, class: "form-control" %>
+
+        <%= f.label :opp_choice, class: "checkbox inline" do %>
+            <%= f.check_box :opp_choice %>
+            <span>Opp choice?</span>
+        <% end %>
+
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<% provide(:title, "Cases") %>
+
+<table>
+  <tr><th>Title</th></tr>
+  <% @cases.each do |a_case| %>
+      <tr>
+        <td><%= link_to a_case.title, a_case %></td>
+      </tr>
+  <% end %>
+</table>
+
+<%= will_paginate %>
