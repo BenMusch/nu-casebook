@@ -16,12 +16,10 @@
         <%= f.label :case_statement %>
         <%= f.text_area :case_statement, class: "form-control" %>
 
-        <%= f.label :opp_choice, class: "checkbox inline" do %>
-            <%= f.check_box :opp_choice %>
-            <span>Opp choice?</span>
-        <% end %>
+        <%= f.label :opp_choice? %>
+        <%= f.check_box :opp_choice %>
 
-        <%= f.submit "Submit", class: "btn btn-primary" %>
+        <%= f.submit "Submit", class: "btn btn-primary form-button case-button" %>
     <% end %>
   </div>
 </div>

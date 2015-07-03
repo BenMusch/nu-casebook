@@ -34,7 +34,7 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.all.paginate(per_page: 25, page: params[:page])
+    @cases = Case.all.paginate(per_page: 15, page: params[:page])
   end
 
   def destroy

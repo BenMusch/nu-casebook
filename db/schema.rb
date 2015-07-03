@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702224523) do
+ActiveRecord::Schema.define(version: 20150703195917) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.text     "case_statement"
     t.boolean  "opp_choice"
-    t.text     "link",           default: "http://www.broken.com"
+    t.text     "link"
   end
 
   create_table "users", force: :cascade do |t|

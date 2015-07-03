@@ -100,6 +100,8 @@ GEM
     fog-softlayer (0.4.7)
       fog-core
       fog-json
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -259,6 +261,7 @@ DEPENDENCIES
   coffee-script-source (= 1.8.0)
   faker (= 1.4.2)
   fog (= 1.23.0)
+  font-awesome-rails
   guard-minitest (= 2.3.1)
   jbuilder (= 2.2.3)
   jquery-rails (= 4.0.3)

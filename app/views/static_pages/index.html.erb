@@ -1,8 +1,11 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="jumbotron" id="home">
     <h1>Welcome!</h1>
 
-    <p>To visit the rest of the app, please <%= link_to "sign up", signup_path %>
-      or <%= link_to "log in", login_path %>.</p>
+    <p>This is an app to manage the Northeastern Debate team's casebook.
+    To access the app, you need to have an account with your @husky.neu.edu
+    email address</p>
+    <p><%= link_to "Sign Up", signup_path, class: "btn btn-primary btn-lg" %></p>
+
   </div>
 </div>

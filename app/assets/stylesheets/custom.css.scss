@@ -14,7 +14,7 @@ $main-red: #ed1c24;
 /* universal */
 
 body {
-  padding-top: 60px;
+  padding-top: 70px;
 }
 
 section {
@@ -30,29 +30,62 @@ textarea {
 }
 
 /* header */
-
 header {
-  padding-top: 15px;
-  #logo {
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-  ul {
-    margin-top: -20px;
-    li {
-      margin-top: 0;
-    }
-  }
+  padding: 5px 0;
   nav {
     padding: 0px;
     float: right;
-    a {
-      color: white;
-      margin-top: 0px;
-      &:visited {
-        color: white;
+    ul {
+      display: block;
+      float: right;
+      height: 100%;
+      li {
+        display: block;
+        float: left;
+        margin-right: 10px;
+        a {
+          margin-top: 11px;
+          padding: 5px;
+          display: block;
+          color: white;
+          width: 100%;
+          height: 100%;
+          &:hover {
+            transition: all 0.3s ease 0s;
+            color: white;
+            opacity: .6;
+            text-decoration: none;
+          }
+          &:active {
+            color: white;
+            text-decoration: none;
+          }
+        }
       }
     }
+  }
+}
+
+#logo {
+  img {
+    height: 50px;
+    display: block;
+    float: left;
+  }
+  span {
+    font-weight: 400;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: white;
+    display: block;
+    float: left;
+    margin-left: 5px;
+    margin-top: 7px;
+  }
+  &:hover {
+    transition: all 0.3s ease 0s;
+    opacity: .6;
+    text-decoration: none;
   }
 }
 
@@ -76,6 +109,10 @@ h1 {
   text-align: center;
 }
 
+#case-title {
+  text-align: left;
+}
+
 h2 {
   font-size: 1.2em;
   letter-spacing: -1px;
@@ -90,11 +127,14 @@ p {
   line-height: 1.7em;
 }
 
+#home {
+  text-align: center;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
-  width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
@@ -118,16 +158,31 @@ input {
   }
 }
 
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
-  }
+.form-button {
+  display: inline;
+  width: 100%;
+  margin: 7px 0;
+}
+
+.case-button {
+  margin-top: -3px;
 }
 
 #session_remember_me {
   width: auto;
   margin-left: 0;
+}
+
+/* cases index */
+
+.case-table {
+  h4 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.case-row {
+  padding: 15px;
+  border-bottom: 1px solid #e1e1e1;
 }

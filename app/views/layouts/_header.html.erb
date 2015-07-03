@@ -1,12 +1,23 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "NU Casebook", "#", id: "logo" %>
+    <div id="logo">
+        <%= link_to cases_path do %>
+            <%= image_tag 'logo.png' %>
+            <span>Casebook</span>
+        <% end %>
+    </div>
     <nav>
       <% if logged_in? %>
-          <%= link_to "Log out", logout_path, method: :delete %>
+          <ul id="logged-in-header">
+            <li><%= link_to "Cases", cases_path %></li>
+            <li><%= link_to "Log out", logout_path, method: :delete %></li>
+            <li><%= link_to "", new_case_path, class: "glyphicon glyphicon-plus" %></li>
+          </ul>
       <% else %>
-          <%= link_to "Sign up", signup_path %>
-          <%= link_to "Login", login_path %>
+          <ul id="not-logged-in-header">
+            <li><%= link_to "Sign up", signup_path %></li>
+            <li><%= link_to "Login", login_path %></li>
+          </ul>
       <% end %>
     </nav>
   </div>

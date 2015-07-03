@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root             'application#index'
-  get  'signup' => 'users#new'
-  get  'login'  => 'sessions#new'
-  post 'login'  => 'sessions#create'
-  get  'logout' => 'sessions#destroy'
+  root                'application#index'
+  get     'signup' => 'users#new'
+  get     'login'  => 'sessions#new'
+  post    'login'  => 'sessions#create'
+  delete  'logout' => 'sessions#destroy'
   resources :users,               only: [:create, :new]
   resources :sessions,            only: [:create, :new, :destroy]
   resources :account_activations, only: [:edit]
