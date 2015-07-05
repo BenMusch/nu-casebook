@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  case_id: 
+  rfd: MyText
+  win: false
+  speaks: 1.5
+
+two:
+  case_id: 
+  rfd: MyText
+  win: false
+  speaks: 1.5

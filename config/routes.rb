@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :sessions,            only: [:create, :new, :destroy]
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :rounds,              only: [:new, :create, :edit, :update, :destroy]
   resources :cases
 end

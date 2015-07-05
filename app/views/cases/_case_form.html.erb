@@ -1,0 +1,19 @@
+<%= form_for @case do |f| %>
+    <%= render 'shared/case_error_messages' %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+
+    <%= f.label :link_to_case %>
+    <%= f.text_field :link, class: "form-control" %>
+
+    <%= f.label :case_statement %>
+    <%= f.text_area :case_statement, class: "form-control" %>
+
+    <%= f.label :opp_choice? %>
+    <%= f.check_box :opp_choice, class: "opp-choice-checkbox" %>
+
+    <br><br>
+
+    <%= f.submit "Submit", class: "btn btn-primary form-button case-button" %>
+<% end %>

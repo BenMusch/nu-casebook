@@ -1,0 +1,21 @@
+<%= form_for @round do |f| %>
+    <%= render 'shared/round_error_messages' %>
+
+    <%= f.label :case, class: "block" %>
+    <%= f.select :case_id, @case_options,
+                 selected: params[:case_id], class: "block" %>
+
+    <div class="block">
+        <%= f.label :win? %>
+        <%= f.check_box :win %>
+    </div>
+    <br>
+
+    <%= f.label :team_speaks %>
+    <%= f.number_field :speaks, class: "form-control", step: 0.25 %>
+
+    <%= f.label :reason_for_decision %>
+    <%= f.text_area :rfd, class: "form-control" %>
+
+    <%= f.submit "Submit", class: "btn btn-primary form-button case-button" %>
+<% end %>

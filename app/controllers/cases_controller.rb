@@ -31,6 +31,7 @@ class CasesController < ApplicationController
 
   def show
     @case = Case.find(params[:id])
+    @stats = @case.stats
   end
 
   def index

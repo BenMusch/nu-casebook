@@ -10,9 +10,34 @@ class UrlValidator < ActiveModel::EachValidator
 end
 
 class Case < ActiveRecord::Base
+  has_many :rounds, dependent: :destroy
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
+
+  def stats
+    wins = 0
+    losses = 0
+    speaks = 0
+    rfds = []
+    self.rounds.each do |round|
+      round.win ? wins += 1 : losses += 1
+      speaks += round.speaks
+      rfds << [round.win, round.rfd]
+    end
+    times_run = wins + losses
+    if times_run == 0
+      avg_speaks = "N/A"
+      win_percentage = "N/A"
+    else
+      avg_speaks = speaks / times_run
+      win_percentage = 100 * wins / times_run
+    end
+    { times_run: times_run,
+      win_percentage: win_percentage,
+      avg_speaks: avg_speaks,
+      rfds: rfds }
+  end
 end

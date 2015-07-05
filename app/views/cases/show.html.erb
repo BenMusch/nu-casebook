@@ -9,16 +9,25 @@
                     class: "btn btn-default" %>
         <%= link_to "Edit", edit_case_path(@case),
                     class: "btn btn-default" %>
+        <%= link_to "Add Round", new_round_path(case_id: @case.id),
+                    class: "btn btn-default" %>
         <%= link_to "Delete", @case, class: "btn btn-default",
                     method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
 
     <br/><br/>
 
-    <p><b>Case statement: </b><%= @case.case_statement %></p>
+    <p><b>Case statement:</b> <%= @case.case_statement %></p>
     <p><b>Opp choice?</b> <%= @case.opp_choice? ? "Yes" : "No" %></p>
-    <br/>
-    <br/>
-
+    <p><b>Win percentage:</b> <%= @stats[:win_percentage] %></p>
+    <p><b>Times runs:</b> <%= @stats[:times_run] %></p>
+    <% if @stats[:times_run] != 0 %>
+    <p><b>RFDs:</b></p>
+        <ul>
+          <% @stats[:rfds].each do |rfd| %>
+            <li><%= rfd[1] %></li>
+          <% end %>
+        </ul>
+    <% end %>
   </div>
 </div>

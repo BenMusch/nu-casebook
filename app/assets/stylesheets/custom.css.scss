@@ -35,15 +35,15 @@ header {
   nav {
     padding: 0px;
     float: right;
-    ul {
+    >ul {
       display: block;
       float: right;
       height: 100%;
-      li {
+      >li {
         display: block;
         float: left;
         margin-right: 10px;
-        a {
+        >a {
           margin-top: 11px;
           padding: 5px;
           display: block;
