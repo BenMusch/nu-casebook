@@ -19,6 +19,7 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'tzinfo-data'
 gem 'font-awesome-rails'
 gem 'coffee-script-source',    '1.8.0'
+gem 'acts-as-taggable-on',     '~> 3.4'
 
 group :development, :test do
   gem 'sqlite3'
