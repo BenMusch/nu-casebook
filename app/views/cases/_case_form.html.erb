@@ -10,6 +10,10 @@
     <%= f.label :case_statement %>
     <%= f.text_area :case_statement, class: "form-control" %>
 
+    <%= f.label :topics %>
+    <%= f.text_field :topic_list, class: "form-control",
+                     placeholder: "Comma-separated list of topics" %>
+
     <%= f.label :opp_choice? %>
     <%= f.check_box :opp_choice, class: "opp-choice-checkbox" %>
 

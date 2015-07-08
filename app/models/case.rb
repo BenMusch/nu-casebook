@@ -11,6 +11,8 @@ end
 
 class Case < ActiveRecord::Base
   has_many :rounds, dependent: :destroy
+  has_many :topicings
+  has_many :topics, through: :topicings
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,
@@ -39,5 +41,15 @@ class Case < ActiveRecord::Base
       win_percentage: win_percentage,
       avg_speaks: avg_speaks,
       rfds: rfds }
+  end
+
+  def topic_list
+    self.topics.map(&:name)
+  end
+
+  def topic_list=(names)
+    self.topics = names.split(",").map do |n|
+      Topic.where(name: n).first_or_create!
+    end
   end
 end
