@@ -1,4 +1,4 @@
 class Topicing < ActiveRecord::Base
-  belongs_to :topic, dependent: :destroy
-  belongs_to :case, dependent: :destroy
+  belongs_to :topic
+  belongs_to :case
 end

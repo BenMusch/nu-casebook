@@ -11,7 +11,7 @@ end
 
 class Case < ActiveRecord::Base
   has_many :rounds, dependent: :destroy
-  has_many :topicings
+  has_many :topicings, dependent: :destroy
   has_many :topics, through: :topicings
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
