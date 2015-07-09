@@ -44,12 +44,16 @@ class Case < ActiveRecord::Base
   end
 
   def topic_list
+    self.topics.map(&:name).join(', ')
+  end
+
+  def topic_names
     self.topics.map(&:name)
   end
 
   def topic_list=(names)
-    self.topics = names.split(",").map do |n|
-      Topic.where(name: n).first_or_create!
+    self.topics = names.split(',').map do |n|
+      Topic.where(name: n.strip).first_or_create!
     end
   end
 end

@@ -21,7 +21,7 @@
     <p><b>Opp choice?</b> <%= @case.opp_choice? ? "Yes" : "No" %></p>
     <p><b>Topics:</b></p>
     <ul>
-      <% @case.topic_list.each do |topic| %>
+      <% @case.topic_names.each do |topic| %>
         <li><%= topic %></li>
       <% end %>
     </ul>
