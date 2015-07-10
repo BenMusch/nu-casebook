@@ -1,15 +1,20 @@
 <% provide(:title, "Cases") %>
 
-<div class="row"></div>
+<div class="row">
+  <div class="col-md-4">
+
+  </div>
+
+  <div class="col-md-8">
     <h1>Cases</h1>
     <div class="case-table">
-      <% @cases.each do |a_case| %>
-          <div class="row case-row">
-            <h4><%= link_to a_case.title, a_case %></h4>
-            <span><%= a_case.case_statement %></span>
-          </div>
-      <% end %>
+        <% @cases.each do |a_case| %>
+            <div class="row case-row">
+                <h4><%= link_to a_case.title, a_case %></h4>
+                <span><%= a_case.case_statement %></span>
+            </div>
+        <% end %>
     </div>
-
     <%= will_paginate %>
+  </div>
 </div>
