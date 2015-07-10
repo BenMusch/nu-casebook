@@ -14,6 +14,10 @@
     <%= f.label :team_speaks %>
     <%= f.number_field :speaks, class: "form-control", step: 0.25 %>
 
+    <%= f.label :who_saw_the_round? %>
+    <%= f.text_field :viewers_list, class: "form-control",
+                             placeholder: "Comma-separated list of names" %>
+
     <%= f.label :reason_for_decision %>
     <%= f.text_area :rfd, class: "form-control" %>
 

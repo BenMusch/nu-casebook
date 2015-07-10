@@ -15,11 +15,12 @@ class User < ActiveRecord::Base
   has_many :topics, through: :topicings
   before_save   :downcase_email
   before_create :create_activation_digest
-  validates :email, presence: true, length: { maximum: 255 },
-                    uniqueness: {case_sensitive: false },
-                    not_seth: true
+  validates     :email, presence: true, length: { maximum: 255 },
+                        uniqueness: {case_sensitive: false },
+                        not_seth: true
+  validates     :password, presence: true, length: { minimum: 6 }
+
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
 
   # Returns a hash digest of the given string
   def User.digest(string)

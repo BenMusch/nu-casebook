@@ -10,9 +10,9 @@ class UrlValidator < ActiveModel::EachValidator
 end
 
 class Case < ActiveRecord::Base
-  has_many :rounds, dependent: :destroy
-  has_many :topicings, dependent: :destroy
-  has_many :topics, through: :topicings
+  has_many :rounds,     dependent: :destroy
+  has_many :topicings,  dependent: :destroy
+  has_many :topics,     through: :topicings
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,
@@ -24,10 +24,14 @@ class Case < ActiveRecord::Base
     losses = 0
     speaks = 0
     rfds = []
+    viewers = []
     self.rounds.each do |round|
       round.win ? wins += 1 : losses += 1
       speaks += round.speaks
       rfds << [round.win, round.rfd]
+      round.viewers.each do |viewer|
+        viewers << viewer unless viewers.include?(viewer)
+      end
     end
     times_run = wins + losses
     if times_run == 0
@@ -40,7 +44,8 @@ class Case < ActiveRecord::Base
     { times_run: times_run,
       win_percentage: win_percentage,
       avg_speaks: avg_speaks,
-      rfds: rfds }
+      rfds: rfds,
+      viewers: viewers }
   end
 
   def topic_list

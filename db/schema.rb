@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708165406) do
+ActiveRecord::Schema.define(version: 20150710031856) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -65,5 +65,21 @@ ActiveRecord::Schema.define(version: 20150708165406) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "viewerings", force: :cascade do |t|
+    t.integer  "round_id"
+    t.integer  "viewer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "viewerings", ["round_id"], name: "index_viewerings_on_round_id"
+  add_index "viewerings", ["viewer_id"], name: "index_viewerings_on_viewer_id"
+
+  create_table "viewers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
