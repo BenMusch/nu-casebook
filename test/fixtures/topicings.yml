@@ -1,9 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  topic_id: 
-  case_id: 
+  topic_id: 1
+  case_id: 1
 
 two:
-  topic_id: 
-  case_id: 
+  topic_id: 2
+  case_id: 1
+
+three:
+  topic_id: 2
+  case_id: 2
+
+four:
+  topic_id: 1
+  case_id: 3
+

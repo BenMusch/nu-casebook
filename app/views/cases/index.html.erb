@@ -1,20 +1,23 @@
 <% provide(:title, "Cases") %>
 
 <div class="row">
-  <div class="col-md-4">
-
-  </div>
-
-  <div class="col-md-8">
     <h1>Cases</h1>
-    <div class="case-table">
-        <% @cases.each do |a_case| %>
-            <div class="row case-row">
-                <h4><%= link_to a_case.title, a_case %></h4>
-                <span><%= a_case.case_statement %></span>
-            </div>
-        <% end %>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Filters</div>
+          <div class="panel-body">
+            <%= render 'filters_form'%>
+          </div>
+        </div>
     </div>
-    <%= will_paginate %>
-  </div>
+    <div class="case-table col-md-8">
+      <% @cases.each do |a_case| %>
+          <div class="row case-row">
+            <h4><%= link_to a_case.title, a_case %></h4>
+            <span><%= a_case.case_statement %></span>
+          </div>
+      <% end %>
+    </div>
+
+
 </div>

@@ -35,7 +35,10 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.all.paginate(per_page: 15, page: params[:page])
+    @cases = Case.where(nil)
+    filter_params.each do |key, value|
+      @cases = @cases.public_send(key, value) if value.present?
+    end
   end
 
   def destroy
@@ -47,8 +50,15 @@ class CasesController < ApplicationController
   private
     def case_params
       params[:opp_choice] = params[:opp_choice] == '1'
-      params.require(:case).permit(:link, :case_statement, :title, :opp_choice, :topic_list)
+      params.require(:case).permit(:link, :case_statement,
+                                   :title, :opp_choice, :topic_list)
     end
+
+  def filter_params
+    params.permit(:minimum_win_percent, :minimum_speaks, :minimum_tight_call,
+                  :maximum_tight_call, :includes_topics, :excludes_topics,
+                  :not_seen_by)
+  end
 
     def logged_in_user
       unless logged_in?

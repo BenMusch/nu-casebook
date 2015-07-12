@@ -1,13 +1,119 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# time run:    7
+# avg speaks:  50
+# win percent: 71.4
+# viewers:
+# topics:      feminism, economics
 one:
-  title: MyString
-  link: MyString
+  id: 1
+  title: Title one
+  link: http://www.google.com/1
+  wins: 5
+  losses: 2
+  speaks: 350.0
+  opp_choice: false
+  case_statement: This is a test
+  created_at: 2015-07-02 15:09:39
+  updated_at: 2015-07-02 15:09:39
+  
+# time run:    4
+# avg speaks:  44
+# win percent: 25
+# viewers:
+# topics:      economics
+two:
+  id: 2
+  title: Title two
+  link: http://www.google.com/2
+  wins: 1
+  losses: 3
+  speaks: 176.0
+  opp_choice: false
+  case_statement: This is a test
+  created_at: 2015-07-02 15:09:39
+  updated_at: 2015-07-02 15:09:39
+  
+# time run:    0
+# avg speaks:  n/a
+# win percent: n/a
+# viewers:     john
+# topics:      feminism
+three:
+  id: 3
+  title: Title three
+  link: http://www.google.com/3
+  wins: 0
+  losses: 0
+  speaks: 0.0
+  opp_choice: false
+  case_statement: This is a test
+  created_at: 2015-07-02 15:09:39
+  updated_at: 2015-07-02 15:09:39
+  
+# time run:    1
+# avg speaks:  55
+# win percent: 100
+# viewers:     joe
+# topics:       
+four:
+  id: 4
+  title: Title three
+  link: http://www.google.com/4
+  wins: 1
+  losses: 0
+  speaks: 55
+  opp_choice: false
+  case_statement: This is a test
+  created_at: 2015-07-02 15:09:39
+  updated_at: 2015-07-02 15:09:39
+  
+# time run:    2
+# avg speaks:  51
+# win percent: 0
+# viewers:     john, joe
+# topics:       
+five:
+  id: 5
+  title: Title one
+  link: http://www.google.com/5
+  wins: 0
+  losses: 2
+  speaks: 102.0
+  opp_choice: false
+  case_statement: This is a test
   created_at: 2015-07-02 15:09:39
   updated_at: 2015-07-02 15:09:39
 
-two:
-  title: MyString
-  link: MyString
+
+# time run:    3
+# avg speaks:  49.5
+# win percent: 67
+# viewers:
+# topics:
+six:
+  id: 6
+  title: Title six
+  link: http://www.google.com/six
+  wins: 2
+  losses: 1
+  speaks: 148.5
+  opp_choice: false
+  case_statement: This is a test
+  created_at: 2015-07-02 15:09:39
+  updated_at: 2015-07-02 15:09:39
+
+# time run:    5
+# avg speaks:  52
+# win percent: 80
+# viewers:
+# topics:
+seven:
+  id: 7
+  title: Title seven
+  link: http://www.google.com/7
+  wins: 4
+  losses: 1
+  speaks: 260
+  opp_choice: false
+  case_statement: This is a test
   created_at: 2015-07-02 15:09:39
   updated_at: 2015-07-02 15:09:39

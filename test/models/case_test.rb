@@ -8,6 +8,13 @@ class CaseTest < ActiveSupport::TestCase
                      case_statement: "This house would abolish sex",
                      created_at: Time.zone.now,
                      opp_choice: false)
+    @one = cases(:one)
+    @two = cases(:two)
+    @three = cases(:three)
+    @four = cases(:four)
+    @five = cases(:five)
+    @six = cases(:six)
+    @seven = cases(:seven)
   end
 
   test "link accepts valid links" do
@@ -49,5 +56,29 @@ class CaseTest < ActiveSupport::TestCase
 
   test "accepts valid cases" do
     assert @case.valid?
+  end
+
+  test "filters by speaks properly" do
+    included = [@one, @four, @five, @seven]
+    not_included = [@two, @three, @six]
+    query = Case.minimum_speaks(50)
+    included.each do |c|
+      assert query.include?(c)
+    end
+    not_included.each do |c|
+      assert_not query.include?(c)
+    end
+  end
+
+  test "filters by wins properly" do
+    included = [@one, @four, @six, @seven]
+    not_included = [@two, @three, @five]
+    query = Case.minimum_win_percent(50)
+    included.each do |c|
+      assert query.include?(c)
+    end
+    not_included.each do |c|
+      assert_not query.include?(c)
+    end
   end
 end

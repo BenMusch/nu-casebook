@@ -1,10 +1,10 @@
 class Viewer < ActiveRecord::Base
   has_many :viewerings
-  has_many :cases, through: :viewerings
-  validates :name, uniqueness: { case_sensitive: false }
+  has_many :rounds, through: :viewerings
+  before_save :capitalize_name
 
-  def ==(other_object)
-    other_object.instance_of?(Viewer) &&
-        self.name.downcase == other_object.name.downcase
+  def capitalize_name
+    names = self.name.split(" ").map { |n| n.capitalize }
+    self.name = names.join(" ")
   end
 end

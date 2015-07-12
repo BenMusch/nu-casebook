@@ -1,9 +1,16 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  case_id: 
-  viewer_id: 
+  round_id: 1
+  viewer_id: 1
 
 two:
-  case_id: 
-  viewer_id: 
+  round_id: 2
+  viewer_id: 2
+
+
+three:
+  round_id: 3
+  viewer_id: 1
+
+four:
+  round_id: 3
+  viewer_id: 2

@@ -11,15 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710031856) do
+ActiveRecord::Schema.define(version: 20150712135331) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.text     "case_statement"
     t.boolean  "opp_choice"
     t.text     "link"
+    t.integer  "wins",              default: 0
+    t.integer  "losses",            default: 0
+    t.float    "speaks",            default: 0.0
+    t.integer  "tight_call_losses", default: 0
+    t.integer  "tight_call_wins",   default: 0
   end
 
   create_table "rounds", force: :cascade do |t|
@@ -27,8 +32,9 @@ ActiveRecord::Schema.define(version: 20150710031856) do
     t.text     "rfd"
     t.boolean  "win"
     t.float    "speaks"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "tight_call", default: false
   end
 
   add_index "rounds", ["case_id"], name: "index_rounds_on_case_id"

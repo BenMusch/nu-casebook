@@ -8,6 +8,8 @@ class Round < ActiveRecord::Base
                             greater_than_or_equal_to: 44
   validates_length_of       :rfd, minimum: 10
 
+
+
   def viewers_list
     self.viewers.map(&:name).join(', ')
   end

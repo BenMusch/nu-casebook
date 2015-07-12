@@ -1,0 +1,29 @@
+<%= form_tag '', method: :get do%>
+    <%= label_tag :minimum_average_speaks %>
+    <%= number_field_tag :minimum_speaks, class: "form-control", step: "any" %>
+
+    <%= label_tag :minimum_win_percentage %>
+    <%= number_field_tag :minimum_win_percent, class: "form-control", step: "any" %>
+
+    <%= label_tag :minimum_tight_call_percentage %>
+    <%= number_field_tag :minimum_tight_call, class: "form-control", step: "any" %>
+
+    <%= label_tag :maximum_tight_call_percentage %>
+    <%= number_field_tag :maximum_tight_call, class: "form-control", step: "any" %>
+
+    <br>
+
+    <%= label_tag :includes_topics %>
+    <%= text_field_tag :includes_topics, nil, class: "form-control",
+                       placeholder: "comma-separated list of topics" %>
+
+    <%= label_tag :excludes_topics %>
+    <%= text_field_tag :excludes_topics, nil, class: "form-control",
+                       placeholder: "comma-separated list of topics" %>
+
+    <%= label_tag :not_seen_by %>
+    <%= text_field_tag :not_seen_by, nil, class: "form-control",
+                       placeholder: "comma-separated list of names" %>
+
+    <%= submit_tag 'Filter', class: "btn btn-primary" %>
+<% end %>

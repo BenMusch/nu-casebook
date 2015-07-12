@@ -4,6 +4,11 @@ class RoundTest < ActiveSupport::TestCase
   def setup
     @round = Round.new(case_id: 1, rfd: "The case was not good",
                        win: false, speaks: 50)
+    @joe = rounds(:joe)
+    viewers(:joe).name = "Joe"
+    @john = rounds(:john)
+    viewers(:john).name = "John"
+    @both = rounds(:both)
   end
 
   test "should reject invalid speaks" do
