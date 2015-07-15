@@ -3,6 +3,7 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
+    @search = Search.new(search_params)
   end
 
   def create
@@ -35,10 +36,8 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.where(nil)
-    filter_params.each do |key, value|
-      @cases = @cases.public_send(key, value) if value.present?
-    end
+    @cases = Case.search(params[:search])
+    @cases = @cases.paginate(page: params[:page], per_page: 20)
   end
 
   def destroy
@@ -53,12 +52,6 @@ class CasesController < ApplicationController
       params.require(:case).permit(:link, :case_statement,
                                    :title, :opp_choice, :topic_list)
     end
-
-  def filter_params
-    params.permit(:minimum_win_percent, :minimum_speaks, :minimum_tight_call,
-                  :maximum_tight_call, :includes_topics, :excludes_topics,
-                  :not_seen_by)
-  end
 
     def logged_in_user
       unless logged_in?

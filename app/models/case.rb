@@ -21,17 +21,6 @@ class Case < ActiveRecord::Base
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
 
-  scope :minimum_speaks,      ->(min) { where("speaks / (wins + losses) >= ?", min) }
-  scope :minimum_win_percent, ->(min) { where("100 * wins / (wins + losses) >= ?", min) }
-  scope :maximum_tight_call,
-        ->(max) {
-          where("100 * (tight_call_wins + tight_call_losses) / (wins + losses <= ?", max) }
-  scope :minimum_tight_call,  ->(min) {
-    where("100 * (tight_call_wins + tight_call_losses) / (wins + losses >= ?", min)}
-  scope :not_seen_by,         ->(names) { select{|c| !c.seen_by(names) } }
-  scope :includes_topics,     ->(topics) { select{|c| c.has_topics(topics) } }
-  scope :excludes_topics,     ->(topics) { select{|c| !c.has_topics(topics)} }
-
   def stats
     rfds = []
     viewers = []
@@ -79,6 +68,15 @@ class Case < ActiveRecord::Base
     all_names = all_names.map{|n| n.downcase }
     names.split(",").each do |name|
       all_names.include?(name.downcase.strip)
+    end
+  end
+
+  def self.search(search)
+    if search
+      where([ 'title LIKE ? OR case_statement LIKE ?', "%#{search}%",
+        "%#{search}%" ])
+    else
+      all
     end
   end
 end

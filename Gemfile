@@ -9,7 +9,7 @@ gem 'fog',                     '1.23.0'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap-sass'
-gem 'sass-rails',              '5.0.2'
+gem 'sass-rails',              '~> 5.0'
 gem 'uglifier',                '2.5.3'
 gem 'coffee-rails',            '4.1.0'
 gem 'jquery-rails',            '4.0.3'
@@ -19,6 +19,8 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'tzinfo-data'
 gem 'font-awesome-rails'
 gem 'coffee-script-source',    '1.8.0'
+gem 'chosen-rails'
+gem 'compass-rails',           '~> 2.0.4'
 
 group :development, :test do
   gem 'sqlite3'

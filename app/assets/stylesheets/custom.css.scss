@@ -89,12 +89,28 @@ header {
   }
 }
 
+.search-bar {
+  float: left;
+  margin-top: 10px;
+  margin-left: 40px;
+  display: block;
+  .search-field {
+    width: 250px;
+  }
+  .search-btn {
+    left: -999px;
+    position: absolute;
+  }
+}
+
 /* footer */
 footer {
   margin-top: 35px;
   border-top: 1px solid lightgray;
   padding-top: 7px;
 }
+
+
 
 /* typography */
 
@@ -133,7 +149,7 @@ p {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+input:not(.search-field), textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   margin-bottom: 15px;
   @include box_sizing;
@@ -174,6 +190,17 @@ input {
 }
 
 /* cases index */
+
+.index-controls {
+  margin-top: 10px;
+  width: 100%;
+  display: inline-block;
+  >a, >div {
+    float: left;
+    display: block;
+    margin-right: 10px;
+  }
+}
 
 .case-table {
   h4 {

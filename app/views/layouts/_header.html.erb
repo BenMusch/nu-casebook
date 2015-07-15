@@ -6,21 +6,16 @@
             <span>Casebook</span>
         <% end %>
     </div>
+    <% if logged_in? %>
+      <%= form_tag cases_path, method: :get, class: "search-bar" do %>
+          <%= text_field_tag :search, params[:search], class: "form-control search-field",
+                              placeholder: "Search" %>
+          <%= submit_tag "Search", class: "search-btn" %>
+      <% end %>
+    <% end %>
     <nav>
       <% if logged_in? %>
-          <ul id="logged-in-header">
-            <li><%= link_to "Cases", cases_path %></li>
-            <li><%= link_to "Log out", logout_path, method: :delete %></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <p class="glyphicon glyphicon-plus"></p><p class="caret"></p>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><%= link_to "New case", new_case_path %></li>
-                <li><%= link_to "New round", new_round_path %></li>
-              </ul>
-            </li>
-          </ul>
+        <%= render 'layouts/logged_in_header' %>
       <% else %>
           <ul id="not-logged-in-header">
             <li><%= link_to "Sign up", signup_path %></li>

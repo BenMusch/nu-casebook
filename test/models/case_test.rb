@@ -57,28 +57,4 @@ class CaseTest < ActiveSupport::TestCase
   test "accepts valid cases" do
     assert @case.valid?
   end
-
-  test "filters by speaks properly" do
-    included = [@one, @four, @five, @seven]
-    not_included = [@two, @three, @six]
-    query = Case.minimum_speaks(50)
-    included.each do |c|
-      assert query.include?(c)
-    end
-    not_included.each do |c|
-      assert_not query.include?(c)
-    end
-  end
-
-  test "filters by wins properly" do
-    included = [@one, @four, @six, @seven]
-    not_included = [@two, @three, @five]
-    query = Case.minimum_win_percent(50)
-    included.each do |c|
-      assert query.include?(c)
-    end
-    not_included.each do |c|
-      assert_not query.include?(c)
-    end
-  end
 end

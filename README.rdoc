@@ -5,11 +5,12 @@ This is a web app to manage the Northeastern Debate casebook. Built using Ruby 2
 == Features
 * User account creation and authentication (only allows @husky.neu.edu emails)
 * Creating & editing cases
+* Log rounds for cases & calculate stats
+* Categorize cases into multiple topics
+* Logs the people who have seen a case
 
 == TODO
-* Create Round model
-* Create Opp model
-* Create Category model
-* Implement Google Drive uploading
+* Advanced searches
 * Separate stats for opp-choice cases
-* Search & filter
+* Implement Google Drive uploading
+* Implement Chart.js

@@ -2,7 +2,7 @@ class Round < ActiveRecord::Base
   belongs_to :case
   has_many   :viewerings, dependent: :destroy
   has_many   :viewers, through: :viewerings
-  accepts_nested_attributes_for :case
+  
   validates_presence_of     :case_id, :rfd, :speaks
   validates_numericality_of :speaks, less_than_or_equal_to: 56,
                             greater_than_or_equal_to: 44

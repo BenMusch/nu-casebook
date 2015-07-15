@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712135331) do
+ActiveRecord::Schema.define(version: 20150715021529) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -27,6 +27,36 @@ ActiveRecord::Schema.define(version: 20150712135331) do
     t.integer  "tight_call_wins",   default: 0
   end
 
+  create_table "excluding_topics", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "search_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "excluding_topics", ["search_id"], name: "index_excluding_topics_on_search_id"
+  add_index "excluding_topics", ["topic_id"], name: "index_excluding_topics_on_topic_id"
+
+  create_table "excluding_viewers", force: :cascade do |t|
+    t.integer  "viewer_id"
+    t.integer  "search_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "excluding_viewers", ["search_id"], name: "index_excluding_viewers_on_search_id"
+  add_index "excluding_viewers", ["viewer_id"], name: "index_excluding_viewers_on_viewer_id"
+
+  create_table "including_topics", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "search_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "including_topics", ["search_id"], name: "index_including_topics_on_search_id"
+  add_index "including_topics", ["topic_id"], name: "index_including_topics_on_topic_id"
+
   create_table "rounds", force: :cascade do |t|
     t.integer  "case_id"
     t.text     "rfd"
@@ -38,6 +68,16 @@ ActiveRecord::Schema.define(version: 20150712135331) do
   end
 
   add_index "rounds", ["case_id"], name: "index_rounds_on_case_id"
+
+  create_table "searches", force: :cascade do |t|
+    t.string   "keywords"
+    t.integer  "min_speaks"
+    t.integer  "min_wins"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "min_tight_call"
+    t.integer  "max_tight_call"
+  end
 
   create_table "topicings", force: :cascade do |t|
     t.integer  "topic_id"
