@@ -3,7 +3,6 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
-    @search = Search.new(search_params)
   end
 
   def create
@@ -32,12 +31,12 @@ class CasesController < ApplicationController
 
   def show
     @case = Case.find(params[:id])
-    @stats = @case.stats
   end
 
   def index
     @cases = Case.search(params[:search])
     @cases = @cases.paginate(page: params[:page], per_page: 20)
+    @search = Search.new
   end
 
   def destroy

@@ -1,0 +1,50 @@
+<%= form_for @search do |f| %>
+
+  <%= render 'shared/search_error_messages' %>
+  <%= f.label :keywords %>
+  <%= f.text_field :keywords, class: "form-control" %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :min_speaks, "Minimum average speaks" %>
+      <%= f.number_field :min_speaks, step: 'any', class: "form-control num-filter" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label :min_wins, "Minimum win percentage" %>
+      <%= f.number_field :min_wins, step: 'any', class: "form-control num-filter" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label :min_tight_call, "Minimum tight call percentage" %>
+      <%= f.number_field :min_tight_call, step: 'any', class: "form-control num-filter" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label :max_tight_call, "Maximum tight call percentage" %>
+      <%= f.number_field :max_tight_call, step: 'any', class: "form-control" %>
+    </div>
+  </div>
+
+      <%= f.label :including_topics, "Includes topics" %><br>
+      <%= f.select :excluding_topics,
+                   Topic.order(:name).map { |v| [v.name, v.id] },
+                   { include_blank: true },
+                   { multiple: true }  %>
+
+      <%= f.label :excluding_topics, "Excludes topics" %><br>
+      <%= f.select :excluding_topics,
+                   Topic.order(:name).map { |v| [v.name, v.id] },
+                   { include_blank: true },
+                   { multiple: true }  %>
+
+      <%= f.label :excluding_viewers, "Not seen by" %><br>
+      <%= f.select :excluding_viewers,
+                   Viewer.order(:name).map { |v| [v.name, v.id] },
+                   { include_blank: true },
+                   { multiple: true }  %>
+
+    <a class="btn btn-default search-toggle">Hide</a>
+
+    <%= f.submit "Search", class: "btn btn-primary" %>
+<% end %>

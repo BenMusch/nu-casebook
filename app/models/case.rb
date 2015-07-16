@@ -21,25 +21,49 @@ class Case < ActiveRecord::Base
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
 
-  def stats
-    rfds = []
-    viewers = []
-    self.rounds.each do |round|
-      rfds << [round.win, round.rfd]
-    end
-    times_run = self.wins + self.losses
-    if times_run == 0
-      avg_speaks = 0
-      win_percentage = 0
+  attr_accessor :rfds, :tight_call_percentage, :average_speaks, :win_percentage,
+                :tight_call_win_percentage
+
+  def add_round(round)
+    @rfds ||= []
+    @rfds.push(round.format_rfd)
+    if round.win?
+      update_attribute(:wins, wins + 1)
+      update_attribute(:tight_call_wins, tight_call_wins + 1) if round.tight_call?
     else
-      avg_speaks = self.speaks / times_run
-      win_percentage = 100 * self.wins / times_run
+      update_attribute(:losses, losses + 1)
+      update_attribute(:tight_call_losses, tight_call_losses + 1) if round.tight_call?
     end
-    { times_run: times_run,
-      win_percentage: win_percentage,
-      avg_speaks: avg_speaks,
-      rfds: rfds,
-      viewers: viewers }
+    update_attribute(:speaks, speaks + round.speaks)
+  end
+
+  def delete_round(round)
+    @rfds -= round.format_rfd
+    if round.win
+      self.wins -= 1
+      self.tight_call_wins -= 1 if round.tight_call
+    else
+      self.losses += 1
+      self.tight_call_losses -=1 if round.tight_call
+    end
+    self.speaks -= round.speaks
+  end
+
+  def stats
+    times_run = wins + losses
+    tight_calls = tight_call_wins + tight_call_losses
+    if times_run > 0
+      average_speaks = speaks / times_run
+      win_percentage = 100 * wins / times_run
+      tight_call_percentage = 100 * tight_calls / times_run
+      tight_call_win_percentage = 100 * tight_call_wins / tight_calls unless tight_calls == 0
+    else
+      average_speaks = win_percentage = tight_call_percentage = tight_call_win_percentage = "N/A"
+    end
+    { average_speaks:            average_speaks,
+      tight_call_win_percentage: tight_call_win_percentage,
+      tight_call_percentage:     tight_call_percentage,
+      win_percentage:            win_percentage }
   end
 
   def topic_list

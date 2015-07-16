@@ -10,4 +10,18 @@ class Topic < ActiveRecord::Base
   def downcase_name
     self.name.downcase!
   end
+
+  def self.tokens(query)
+    topics = where("name LIKE ?", "%#{query}%")
+    if topics.empty?
+      [{id: "<<<#{query}>>>", name: "New: \"#{query}\""}]
+    else
+      topics
+    end
+  end
+
+  def self.ids_from_tokens(tokens)
+    tokens.gsub("/<<<(.+?)>>>/") { create!(name: $1).id }
+    tokens.split(',')
+  end
 end

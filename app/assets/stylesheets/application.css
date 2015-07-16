@@ -13,5 +13,6 @@
  *= require_tree .
  *= require_self
  *= require font-awesome
- *= require chosen
+ *= require token-input
+ *= require token-input-bootstrap3
  */

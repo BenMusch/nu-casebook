@@ -17,4 +17,10 @@ class Search < ActiveRecord::Base
   validates_numericality_of :max_tight_call, greater_than_or_equal_to: 0,
                             less_than_or_equal_to: 100,
                             allow_blank: true
+
+  def search_cases
+    cases = Case.all
+
+    cases = cases.where()
+  end
 end

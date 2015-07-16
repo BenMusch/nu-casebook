@@ -19,7 +19,7 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'tzinfo-data'
 gem 'font-awesome-rails'
 gem 'coffee-script-source',    '1.8.0'
-gem 'chosen-rails'
+gem 'jquery-tokeninput-rails'
 gem 'compass-rails',           '~> 2.0.4'
 
 group :development, :test do

@@ -31,7 +31,7 @@ class RoundsController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
   end
 
   private

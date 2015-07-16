@@ -25,22 +25,24 @@
         <li><%= topic %></li>
       <% end %>
     </ul>
-    <p><b>Win percentage:</b> <%= @stats[:win_percentage] %></p>
-    <p><b>Times runs:</b> <%= @stats[:times_run] %></p>
-    <% if @stats[:times_run] != 0 %>
+    <p><b>Times run:</b> <%= @case.wins + @case.losses %></p>
+    <% if @case.wins + @case.losses != 0 %>
+        <p><b>Win percentage:</b> <%= @case.win_percentage %></p>
+        <p><b>Tight call percentage:</b> <%= @case.tight_call_percentage %></p>
+        <p><b>Tight call win percentage:</b>
+          <%= @case.tight_call_win_percentage %></p>
         <p><b>RFDs:</b></p>
-            <ul>
-              <% @stats[:rfds].each do |rfd| %>
-                <li><%= rfd[1] %></li>
-              <% end %>
-            </ul>
-
-        <p><b>Seen By:</b></p>
-            <ul>
-              <% @stats[:viewers].each do |person| %>
-                  <li><%= person.name %></li>
-              <% end %>
-            </ul>
+        <ul>
+          <% @case.rfds.each do |rfd| %>
+            <li><%= rfd[:text] %></li>
+          <% end %>
+        </ul>
+        <p><b>Seen by:</b></p>
+        <ul>
+          <% @case.viewers.each do |viewer| %>
+            <li><%= viewer.name %></li>
+          <% end %>
+        </ul>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,12 @@
+<% if @search.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@case.errors.count, "error") %>.
+      </div>
+      <ul>
+        <% @search.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
