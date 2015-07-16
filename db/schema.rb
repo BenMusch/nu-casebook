@@ -11,20 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715021529) do
+ActiveRecord::Schema.define(version: 20150716140655) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.text     "case_statement"
     t.boolean  "opp_choice"
     t.text     "link"
-    t.integer  "wins",              default: 0
-    t.integer  "losses",            default: 0
-    t.float    "speaks",            default: 0.0
-    t.integer  "tight_call_losses", default: 0
-    t.integer  "tight_call_wins",   default: 0
+    t.integer  "wins",                      default: 0
+    t.integer  "losses",                    default: 0
+    t.float    "speaks",                    default: 0.0
+    t.integer  "tight_call_losses",         default: 0
+    t.integer  "tight_call_wins",           default: 0
+    t.float    "win_percentage",            default: 0.0
+    t.float    "tight_call_percentage",     default: 0.0
+    t.float    "tight_call_win_percentage", default: 0.0
+    t.float    "average_speaks",            default: 0.0
   end
 
   create_table "excluding_topics", force: :cascade do |t|

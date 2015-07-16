@@ -21,12 +21,7 @@ class Case < ActiveRecord::Base
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
 
-  attr_accessor :rfds, :tight_call_percentage, :average_speaks, :win_percentage,
-                :tight_call_win_percentage
-
   def add_round(round)
-    @rfds ||= []
-    @rfds.push(round.format_rfd)
     if round.win?
       update_attribute(:wins, wins + 1)
       update_attribute(:tight_call_wins, tight_call_wins + 1) if round.tight_call?
@@ -35,21 +30,30 @@ class Case < ActiveRecord::Base
       update_attribute(:tight_call_losses, tight_call_losses + 1) if round.tight_call?
     end
     update_attribute(:speaks, speaks + round.speaks)
+    update_stats
+  end
+
+  def rfds
+    result = []
+    self.rounds.each do |round|
+      result << round.format_rfd
+    end
+    result
   end
 
   def delete_round(round)
-    @rfds -= round.format_rfd
-    if round.win
-      self.wins -= 1
-      self.tight_call_wins -= 1 if round.tight_call
-    else
-      self.losses += 1
-      self.tight_call_losses -=1 if round.tight_call
-    end
-    self.speaks -= round.speaks
+      if round.win?
+        update_attribute(:wins, wins - 1)
+        update_attribute(:tight_call_wins, tight_call_wins - 1) if round.tight_call?
+      else
+        update_attribute(:losses, losses - 1)
+        update_attribute(:tight_call_losses, tight_call_losses - 1) if round.tight_call?
+      end
+      update_attribute(:speaks, speaks - round.speaks)
+      update_stats
   end
 
-  def stats
+  def update_stats
     times_run = wins + losses
     tight_calls = tight_call_wins + tight_call_losses
     if times_run > 0
@@ -58,12 +62,12 @@ class Case < ActiveRecord::Base
       tight_call_percentage = 100 * tight_calls / times_run
       tight_call_win_percentage = 100 * tight_call_wins / tight_calls unless tight_calls == 0
     else
-      average_speaks = win_percentage = tight_call_percentage = tight_call_win_percentage = "N/A"
+      average_speaks = win_percentage = tight_call_percentage = tight_call_win_percentage = nil
     end
-    { average_speaks:            average_speaks,
-      tight_call_win_percentage: tight_call_win_percentage,
-      tight_call_percentage:     tight_call_percentage,
-      win_percentage:            win_percentage }
+    update_attribute(:average_speaks,            average_speaks)
+    update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
+    update_attribute(:tight_call_percentage,     tight_call_percentage)
+    update_attribute(:win_percentage,            win_percentage)
   end
 
   def topic_list

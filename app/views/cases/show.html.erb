@@ -29,9 +29,11 @@
     <% if @case.wins + @case.losses != 0 %>
         <p><b>Win percentage:</b> <%= @case.win_percentage %></p>
         <p><b>Tight call percentage:</b> <%= @case.tight_call_percentage %></p>
-        <p><b>Tight call win percentage:</b>
-          <%= @case.tight_call_win_percentage %></p>
-        <p><b>RFDs:</b></p>
+        <% if @case.tight_call_percentage > 0 %>
+          <p><b>Tight call win percentage:</b>
+            <%= @case.tight_call_win_percentage %></p>
+          <p><b>RFDs:</b></p>
+        <% end %>
         <ul>
           <% @case.rfds.each do |rfd| %>
             <li><%= rfd[:text] %></li>

@@ -37,8 +37,9 @@ class RoundsController < ApplicationController
   private
     def round_params
       params[:win] = params[:win] == '1'
+      params[:tight_call] = params[:tight_call] == '1'
       params.require(:round).permit(:case_id, :speaks, :win, :rfd,
-                                    :viewers_list)
+                                    :viewers_list, :tight_call)
     end
 
     def logged_in_user

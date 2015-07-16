@@ -49,14 +49,14 @@ class RoundTest < ActiveSupport::TestCase
     rounds.each_with_index do |round, index|
       round.save
       @case.reload
-      stats = @case.stats
-      assert_in_delta stats[:win_percentage],
+      puts @case.win_percentage
+      assert_in_delta @case.win_percentage,
                       win_percentages[index], 1
-      assert_in_delta stats[:tight_call_percentage],
+      assert_in_delta @case.tight_call_percentage,
                       tight_call_percentages[index], 1
-      assert_in_delta stats[:tight_call_win_percentage],
+      assert_in_delta @case.tight_call_win_percentage,
                       tight_call_win_percentages[index], 1
-      assert_in_delta stats[:average_speaks],
+      assert_in_delta @case.average_speaks,
                       speaks[index], 0.001
     end
   end
