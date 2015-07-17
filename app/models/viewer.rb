@@ -2,12 +2,15 @@ class Viewer < ActiveRecord::Base
   has_many :viewerings
   has_many :excluding_viewers
   has_many :rounds,   through: :viewerings
+  has_many :cases,    through: :rounds
   has_many :searches, through: :excluding_viewers
+
+  validates_uniqueness_of :name, case_sensitive: false
+
   before_save :capitalize_name
 
   def capitalize_name
-    names = self.name.split(" ").map { |n| n.capitalize }
-    self.name = names.join(" ")
+    self.name = format_name(self.name)
   end
 
   def self.tokens(query)

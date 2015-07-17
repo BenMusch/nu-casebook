@@ -6,12 +6,12 @@
         Order By <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#">Date (newest first)</a></li>
-        <li><a href="#">Date (oldest first)</a></li>
-        <li><a href="#">Average speaks</a></li>
-        <li><a href="#">Win percentage</a></li>
-        <li><a href="#">Tight calls (most first)</a></li>
-        <li><a href="#">Tight calls (least first)</a></li>
+        <li><%= link_to "Average speaks", sort: "average_speaks DESC" %></li>
+        <li><%= link_to "Win percentage", sort: "win_percentage DESC" %></li>
+        <li><%= link_to "Tight calls (most frequent first)",
+                        sort: "tight_call_percentage DESC" %></li>
+        <li><%= link_to "Tight calls (least frequent first)",
+                         sort: "tight_call_percentage ASC" %></li>
       </ul>
     </div>
     <button class="btn btn-default search-toggle">Advanced Search</button>

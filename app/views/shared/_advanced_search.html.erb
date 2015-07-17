@@ -26,23 +26,14 @@
     </div>
   </div>
 
-      <%= f.label :including_topics, "Includes topics" %><br>
-      <%= f.select :excluding_topics,
-                   Topic.order(:name).map { |v| [v.name, v.id] },
-                   { include_blank: true },
-                   { multiple: true }  %>
+      <%= f.label :including_topics_list, "Includes topics" %><br>
+      <%= f.text_field :including_topics_list, class: "form-control" %>
 
-      <%= f.label :excluding_topics, "Excludes topics" %><br>
-      <%= f.select :excluding_topics,
-                   Topic.order(:name).map { |v| [v.name, v.id] },
-                   { include_blank: true },
-                   { multiple: true }  %>
+      <%= f.label :excluding_topics_list, "Excludes topics" %><br>
+      <%= f.text_field :excluding_topics_list, class: "form-control"  %>
 
-      <%= f.label :excluding_viewers, "Not seen by" %><br>
-      <%= f.select :excluding_viewers,
-                   Viewer.order(:name).map { |v| [v.name, v.id] },
-                   { include_blank: true },
-                   { multiple: true }  %>
+      <%= f.label :excluding_viewers_list, "Not seen by" %><br>
+      <%= f.text_field :excluding_viewers_list, class: "form-control"  %>
 
     <a class="btn btn-default search-toggle">Hide</a>
 
