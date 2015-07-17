@@ -3,6 +3,9 @@
 <div class="row">
     <div class="case-table col-md-16">
       <%= render 'shared/index_controls' %>
+      <% if @cases.count == 0 %>
+        <p>Sorry, no cases match thoses specifications.</p>
+      <% end %>
       <% @cases.each do |a_case| %>
           <div class="row case-row">
             <h4><%= link_to a_case.title, a_case %></h4>

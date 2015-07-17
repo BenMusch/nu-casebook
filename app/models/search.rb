@@ -67,15 +67,15 @@ class Search < ActiveRecord::Base
     cases = cases.where("tight_call_percentage <= ?", max_tight_call) if max_tight_call.present?
     cases = cases.where("tight_call_percentage >= ?", max_tight_call) if min_tight_call.present?
     ids = includes_topics.pluck(:id)
-    cases = cases.includes(:topics).where('topics.id' => ids) if including_topics.present?
-    ids = excludes_topics.pluck(:id)
-    included_cases_ids = Case.all.includes(:topics).where(
-                         'topics.id' => ids).pluck(:id)
-    cases = cases.where.not('id' => included_cases_ids) if excluding_topics.present?
-    ids = viewers.pluck(:id)
-    included_viewers = Case.all.includes(:viewers).where(
-                      'viewers.id' => ids).pluck(:id)
-    cases = cases.where.not('id' => included_viewers) if excluding_viewers.present?
+      cases = cases.includes(:topics).where('topics.id' => ids) if including_topics.present?
+      ids = excludes_topics.pluck(:id)
+      included_cases_ids = Case.all.includes(:topics).where(
+                           'topics.id' => ids).pluck(:id)
+      cases = cases.where.not('id' => included_cases_ids) if excluding_topics.present?
+      ids = viewers.pluck(:id)
+      included_viewers = Case.all.includes(:viewers).where(
+                        'viewers.id' => ids).pluck(:id)
+      cases = cases.where.not('id' => included_viewers) if excluding_viewers.present?
     cases
   end
 end
