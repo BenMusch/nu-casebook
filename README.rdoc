@@ -8,11 +8,11 @@ This is a web app to manage the Northeastern Debate casebook. Built using Ruby 2
 * Log rounds for cases & calculate stats
 * Categorize cases into multiple topics
 * Logs the people who have seen a case
+* Advanced searches
 
 == TODO
 
 Back-end:
-* Advanced searches
 * Separate stats for opp-choice cases
 * Implement Google Drive uploading
 Front-end:
