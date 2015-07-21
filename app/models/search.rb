@@ -1,12 +1,13 @@
 class Search < ActiveRecord::Base
   include ViewersHelper
-
+  # Relationships
   has_many :includes_topics, through: :including_topics, source: :topic
   has_many :excludes_topics, through: :excluding_topics, source: :topic
   has_many :viewers,         through: :excluding_viewers
   has_many :including_topics
   has_many :excluding_topics
   has_many :excluding_viewers
+  # Validations
   validates_numericality_of :min_speaks, greater_than_or_equal_to: 44,
                             less_than_or_equal_to: 56,
                             allow_blank: true
@@ -19,11 +20,12 @@ class Search < ActiveRecord::Base
   validates_numericality_of :max_tight_call, greater_than_or_equal_to: 0,
                             less_than_or_equal_to: 100,
                             allow_blank: true
+  # Attributes
   attr_reader :excluding_viewers_list, :excluding_topics_list,
               :including_topics_list
 
   def excluding_viewers_list
-    self.viewers.map(&:name).join(", ")
+    names_string(self.viewers)
   end
 
   def excluding_viewers_list=(names)
@@ -35,7 +37,7 @@ class Search < ActiveRecord::Base
   end
 
   def excluding_topics_list
-    self.excludes_topics.map(&:name).join(", ")
+    names_string(self.excludes_topics)
   end
 
   def excluding_topics_list=(names)
@@ -47,7 +49,7 @@ class Search < ActiveRecord::Base
   end
 
   def including_topics_list
-    self.includes_topics.map(&:name).join(", ")
+    names_string(self.includes_topics)
   end
 
   def including_topics_list=(names)

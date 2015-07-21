@@ -1,5 +1,5 @@
 <%= form_for @round do |f| %>
-    <%= render 'shared/round_error_messages' %>
+    <%= render 'shared/error_messages', object: @round %>
 
     <%= f.label :case, class: "block" %>
     <%= f.select :case_id, @case_options,

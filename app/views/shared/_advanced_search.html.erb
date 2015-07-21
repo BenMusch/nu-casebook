@@ -1,6 +1,6 @@
 <%= form_for @search do |f| %>
 
-  <%= render 'shared/search_error_messages' %>
+  <%= render 'shared/error_messages', object: @search %>
   <%= f.label :keywords %>
   <%= f.text_field :keywords, class: "form-control" %>
 

@@ -16,7 +16,7 @@ class Round < ActiveRecord::Base
 
   # Returns a string of the Viewers of this Round, separated by commas
   def viewers_list
-    self.viewers.map(&:name).join(', ')
+    names_string(self.viewers)
   end
 
   # Sets the Viewers of this Round equal to all the names in the passed string

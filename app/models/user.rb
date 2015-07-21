@@ -1,17 +1,19 @@
 class User < ActiveRecord::Base
   require 'not_seth_validator'
-
-  attr_accessor :remember_token, :activation_token, :reset_token
+  # Relations
   has_many :rounds
   has_many :topicings
   has_many :topics, through: :topicings
-  before_save   :downcase_email
-  before_create :create_activation_digest
+  # Validations
   validates     :email, presence: true, length: { maximum: 255 },
                         uniqueness: {case_sensitive: false },
                         not_seth: true
   validates     :password, presence: true, length: { minimum: 6 }
-
+  # Callbacks
+  before_save   :downcase_email
+  before_create :create_activation_digest
+  # Attrs
+  attr_accessor :remember_token, :activation_token, :reset_token
   has_secure_password
 
   # Returns a hash digest of the given string

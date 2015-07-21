@@ -60,13 +60,13 @@ class Case < ActiveRecord::Base
   # Returns a string of the names of the Topics this Case has, joined by commas
   # Used for forms
   def topic_list
-    self.topics_names.join(', ')
+    names_string(self.topics)
   end
 
   # Returns an array of the names of the Topics this Case has
   # Used for the show page of a Case
   def topic_names
-    self.topics.map(&:name)
+    names_array(self.topics)
   end
 
   # Sets the Topics for this Case based on a string of comma-separated names

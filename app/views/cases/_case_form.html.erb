@@ -1,5 +1,5 @@
 <%= form_for @case do |f| %>
-  <%= render 'shared/case_error_messages' %>
+  <%= render 'shared/error_messages', object: @case %>
 
   <%= f.label :title %>
   <%= f.text_field :title, class: "form-control" %>
