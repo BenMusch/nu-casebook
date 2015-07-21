@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716140655) do
+ActiveRecord::Schema.define(version: 20150720203309) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -82,6 +82,17 @@ ActiveRecord::Schema.define(version: 20150716140655) do
     t.integer  "min_tight_call"
     t.integer  "max_tight_call"
   end
+
+  create_table "sides", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "wins",       default: 0
+    t.integer  "losses",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "case_id"
+  end
+
+  add_index "sides", ["case_id"], name: "index_sides_on_case_id"
 
   create_table "topicings", force: :cascade do |t|
     t.integer  "topic_id"

@@ -49,7 +49,6 @@ class RoundTest < ActiveSupport::TestCase
     rounds.each_with_index do |round, index|
       round.save
       @case.reload
-      puts @case.win_percentage
       assert_in_delta @case.win_percentage,
                       win_percentages[index], 1
       assert_in_delta @case.tight_call_percentage,

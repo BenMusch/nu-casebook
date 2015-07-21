@@ -49,8 +49,10 @@ class CasesController < ApplicationController
   private
     def case_params
       params[:opp_choice] = params[:opp_choice] == '1'
-      params.require(:case).permit(:link, :case_statement,
-                                   :title, :opp_choice, :topic_list)
+      params.require(:case).permit(:link,       :case_statement,
+                                   :title,      :opp_choice,
+                                   :topic_list, :side1, :side2,
+                                   sides: [:name])
     end
 
     def logged_in_user
