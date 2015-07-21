@@ -1,26 +1,26 @@
 class Case < ActiveRecord::Base
   require 'url_validator'
 
+  # Relationships
   has_many :rounds,     dependent: :destroy
   has_many :topicings,  dependent: :destroy
   has_many :topics,     through: :topicings
   has_many :viewers,    through: :rounds
   has_many :sides,      dependent: :destroy
-
+  # Validations
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
-
-  validate :opp_choice_has_sides
-
+  validate  :opp_choice_has_sides
+  # Callbacks
+  after_save :delete_sides
+  # Attrs
+  attr_reader :side1, :side2
   accepts_nested_attributes_for :sides
 
-  after_save :delete_sides
-
-  attr_reader :side1, :side2
-
+  # Adds the stats of the passed Round to this Cases' attributes
   def add_round(round)
     if round.win?
       update_attribute(:wins, wins + 1)
@@ -33,6 +33,7 @@ class Case < ActiveRecord::Base
     update_stats
   end
 
+  # Collects the properly formatted RFDs from all of this Cases' Rounds
   def rfds
     result = []
     self.rounds.each do |round|
@@ -41,6 +42,7 @@ class Case < ActiveRecord::Base
     result
   end
 
+  # Deletes the stats of the passed Round from this Case
   def delete_round(round)
       if round.win?
         update_attribute(:wins, wins - 1)
@@ -55,20 +57,26 @@ class Case < ActiveRecord::Base
       update_stats
   end
 
+  # Returns a string of the names of the Topics this Case has, joined by commas
+  # Used for forms
   def topic_list
-    self.topics.map(&:name).join(', ')
+    self.topics_names.join(', ')
   end
 
+  # Returns an array of the names of the Topics this Case has
+  # Used for the show page of a Case
   def topic_names
     self.topics.map(&:name)
   end
 
+  # Sets the Topics for this Case based on a string of comma-separated names
   def topic_list=(names)
     self.topics = names.split(',').map do |n|
       Topic.where(name: n.strip).first_or_create!
     end
   end
 
+  # Does this case have any of the Topics in the passed string?
   def has_topics(names)
     names.split(",").each do |name|
       return true if self.topic_names.include?(name.downcase.strip)
@@ -76,6 +84,7 @@ class Case < ActiveRecord::Base
     false
   end
 
+  # Is this case seen by any of the passed names?
   def seen_by(names)
     all_names = self.viewers.map(&:name)
     all_names = all_names.map{|n| n.downcase }
@@ -84,6 +93,8 @@ class Case < ActiveRecord::Base
     end
   end
 
+  # Class method that returns all of the Cases with the passed string in
+  # their title
   def self.search(search)
     if search
       where([ 'title LIKE ? OR case_statement LIKE ?', "%#{search}%",
@@ -93,10 +104,14 @@ class Case < ActiveRecord::Base
     end
   end
 
+  # Sides the first Side of this Case equal to a Side with the passed name
+  # TODO replace with nested form
   def side1=(name)
     self.sides << Side.create(name: name)
   end
 
+  # Sides the second Side of this case equal to a Side with the passed name
+  # TODO replace with nested form
   def side2=(name)
     self.sides << Side.create(name: name)
   end
@@ -136,6 +151,7 @@ class Case < ActiveRecord::Base
       if opp_choice?
         errors.add(:side1, "must have a name") if side1.blank?
         errors.add(:side2, "must have a name") if side2.blank?
+        errors.add(:side1, "can't have the same name as Side 2") if side1 == side2
       end
     end
 end
