@@ -1,4 +1,6 @@
 class Viewer < ActiveRecord::Base
+  include Helpers
+
   # Relations
   has_many :viewerings
   has_many :excluding_viewers

@@ -13,26 +13,15 @@
   <%= f.label :topics %>
   <%= f.text_field :topic_list, class: "form-control",
                    placeholder: "Comma-separated list of topics" %>
+    <%= f.label :opp_choice? %>
+    <%= f.check_box :opp_choice, class: "opp-choice-checkbox" %>
 
-  <%= f.label :opp_choice? %>
-  <%= f.check_box :opp_choice, class: "opp-choice-checkbox" %>
-
-  <div id="sides">
-    <% if @case.sides.count == 0 %>
-      <%= f.label :side1, "Side 1 Name" %>
-      <%= f.text_field :side1, class: "form-control", placeholder:
-                       "A short name to describe one side of the case" %>
-
-      <%= f.label :side2, "Side 2 Name" %>
-      <%= f.text_field :side2, class: "form-control", placeholder:
-                       "A short name to describe the other side of the case" %>
-    <% else %>
+    <div id="sides">
       <%= f.fields_for :sides do |builder| %>
         <%= builder.label :name, "Side Name" %>
         <%= builder.text_field :name, class: "form-control" %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
   <%= f.submit "Submit", class: "btn btn-primary form-button case-button" %>
 <% end %>

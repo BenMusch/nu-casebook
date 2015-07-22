@@ -3,6 +3,7 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
+    2.times { @case.sides.build }
   end
 
   def create
@@ -17,6 +18,7 @@ class CasesController < ApplicationController
 
   def edit
     @case = Case.find(params[:id])
+    2.times { @case.sides.build } unless @case.sides.present?
   end
 
   def update
@@ -51,8 +53,7 @@ class CasesController < ApplicationController
       params[:opp_choice] = params[:opp_choice] == '1'
       params.require(:case).permit(:link,       :case_statement,
                                    :title,      :opp_choice,
-                                   :topic_list, :side1, :side2,
-                                   sides: [:name])
+                                   :topic_list, sides_attributes: [:name, :id])
     end
 
     def logged_in_user

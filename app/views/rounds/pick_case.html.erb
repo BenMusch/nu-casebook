@@ -1,0 +1,8 @@
+<h1>Pick a Case</h1>
+
+
+<%= form_tag new_round_path, method: :get do %>
+  <%= select_tag :case_id, options_for_select(Case.all.collect { |c| [c.title, c.id]}) %><br/>
+
+  <%= submit_tag "Create round", class: "btn btn-primary" %>
+<% end %>

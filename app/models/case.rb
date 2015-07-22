@@ -1,23 +1,21 @@
 class Case < ActiveRecord::Base
+  include Helpers
   require 'url_validator'
 
-  # Relationships
   has_many :rounds,     dependent: :destroy
   has_many :topicings,  dependent: :destroy
   has_many :topics,     through: :topicings
-  has_many :viewers,    through: :rounds
+  has_many :viewers,    -> { uniq }, through: :rounds
   has_many :sides,      dependent: :destroy
-  # Validations
+
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
-  validate  :opp_choice_has_sides
-  # Callbacks
+
   after_save :delete_sides
-  # Attrs
-  attr_reader :side1, :side2
+
   accepts_nested_attributes_for :sides
 
   # Adds the stats of the passed Round to this Cases' attributes
@@ -104,24 +102,12 @@ class Case < ActiveRecord::Base
     end
   end
 
-  # Sides the first Side of this Case equal to a Side with the passed name
-  # TODO replace with nested form
-  def side1=(name)
-    self.sides << Side.create(name: name)
-  end
-
-  # Sides the second Side of this case equal to a Side with the passed name
-  # TODO replace with nested form
-  def side2=(name)
-    self.sides << Side.create(name: name)
-  end
-
   private
     # deletes the sides in this case if the case is no longer opp choice
     def delete_sides
       unless opp_choice?
         self.sides.each do |side|
-          side.Delete
+          side.delete
         end
       end
     end
@@ -144,14 +130,5 @@ class Case < ActiveRecord::Base
       update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
       update_attribute(:tight_call_percentage,     tight_call_percentage)
       update_attribute(:win_percentage,            win_percentage)
-    end
-
-    # validates that opp_choice cases have sides
-    def opp_choice_has_sides
-      if opp_choice?
-        errors.add(:side1, "must have a name") if side1.blank?
-        errors.add(:side2, "must have a name") if side2.blank?
-        errors.add(:side1, "can't have the same name as Side 2") if side1 == side2
-      end
     end
 end
