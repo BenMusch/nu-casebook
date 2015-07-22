@@ -27,6 +27,13 @@ class Case < ActiveRecord::Base
       update_attribute(:losses, losses + 1)
       update_attribute(:tight_call_losses, tight_call_losses + 1) if round.tight_call?
     end
+    if opp_choice?
+      if round.win?
+        round.side.update_attribute(:wins, round.side.wins + 1)
+      else
+        round.side.update_attribute(:losses, round.side.losses + 1)
+      end
+    end
     update_attribute(:speaks, speaks + round.speaks)
     update_stats
   end
@@ -80,6 +87,24 @@ class Case < ActiveRecord::Base
       return true if self.topic_names.include?(name.downcase.strip)
     end
     false
+  end
+
+  # Returns stats separated by sides for opp choice cases
+  def opp_choice_stats
+    final_stats = []
+    case_times_run = self.wins + self.losses
+    self.sides.find_each do |side|
+      times_defended = side.wins + side.losses
+      side_stats = Hash.new
+      side_stats[:name] = side.name
+      if times_defended > 0
+        side_stats[:rate_defended] = 100 * times_defended / case_times_run
+        side_stats[:win_percentage] = 100 * side.wins / times_defended unless times_defended = 0
+      end
+      side_stats[:win_percentage] ||= "NEVER"
+      final_stats << side_stats
+    end
+    final_stats
   end
 
   # Is this case seen by any of the passed names?

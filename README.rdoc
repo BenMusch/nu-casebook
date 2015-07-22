@@ -19,3 +19,4 @@ Back-end:
 Front-end:
 * Implement Chart.js
 * Improve form usability
+* Make the site actually usable

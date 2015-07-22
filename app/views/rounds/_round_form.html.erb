@@ -4,8 +4,8 @@ _<%= form_for @round do |f| %>
     <%= f.hidden_field :case_id, value: params[:case_id] %>
 
     <% if @case.opp_choice? %>
-      <%= f.label :side, "Side the Gov defended", class: "block" %>
-      <%= f.select :side, @side_options %>
+      <%= f.label :side_id, "Side the Gov defended", class: "block" %>
+      <%= f.select :side_id, @side_options %>
     <% end %>
 
     <div class="block">

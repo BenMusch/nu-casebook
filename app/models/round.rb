@@ -30,9 +30,12 @@ class Round < ActiveRecord::Base
 
   # Formats the rfd into a hash that contains important info
   def format_rfd
-    { tight_call: self.tight_call?,
-      win:        self.win?,
-      text:       self.rfd }
+    rfd_hash = Hash.new
+    rfd_hash[:tight_call] = tight_call?
+    rfd_hash[:win]        = win?
+    rfd_hash[:text]       = rfd
+    rfd_hash[:side]       = side if side
+    rfd_hash
   end
 
   private
