@@ -1,0 +1,56 @@
+<b>Seen by:</b>
+<% @case.viewers.each do |viewer| %>
+  <div class="label label-default"><%= viewer.name %></div>
+<% end %>
+
+<br><br>
+
+<% if @case.wins + @case.losses != 0 %>
+  <div class="row">
+    <div class="panel panel-default stats-panel">
+      <div class="row">
+        <div class="stat">
+          <span>Times run:</span>
+          <h4><%= @case.wins + @case.losses %></h4>
+        </div>
+        <div class="stat">
+          <span>Win percentage:</span>
+          <h4><%= @case.win_percentage %></h4>
+        </div>
+        <div class="stat">
+          <span>Average speaks:</span>
+          <h4><%= @case.average_speaks %></h4>
+        </div>
+        <div class="stat">
+          <span>Tight call percentage:</span>
+          <h4><%= @case.tight_call_percentage %></h4>
+        </div>
+        <div class="stat">
+          <span>Tight call win percentage:</span>
+          <h4><%= @case.tight_call_win_percentage || "N/A" %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @case.opp_choice %>
+    <h4>Stats by side:</h4>
+    <div class="row">
+      <% @case.opp_choice_stats.each do |stats| %>
+        <div class="col col-md-6 side">
+          <div class="panel panel-default">
+            <h3><%= stats[:name] %></h3>
+            <p><%= "Gov defends this side #{stats[:rate_defended]}%
+             of the time" %></p>
+            <p><%= "Gov wins defending this side #{stats[:win_percentage]}%
+            of the time" %></p>
+            <%= render 'rfds', rfds: @case.rfds(stats[:name]) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <%= render 'rfds', rfds: @case.rfds %>
+  <% end %>
+
+<% end %>

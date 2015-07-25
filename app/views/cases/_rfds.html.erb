@@ -1,0 +1,23 @@
+<b>Winning RFDs</b>
+<ul class="rfds">
+  <% rfds[0].each do |rfd| %>
+    <li>
+      <% if rfd[:tight_call] %>
+        <span class="label label-info">Tight Call</span>
+      <% end %>
+      <%= rfd[:text] %>
+    </li>
+  <% end %>
+</ul>
+
+<b>Losing RFDs</b>
+<ul class="rfds">
+  <% rfds[1].each do |rfd| %>
+    <li>
+      <% if rfd[:tight_call] %>
+        <span class="label label-info">Tight Call</span>
+      <% end %>
+      <%= rfd[:text] %>
+    </li>
+  <% end %>
+</ul>

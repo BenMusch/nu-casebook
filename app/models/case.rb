@@ -39,12 +39,14 @@ class Case < ActiveRecord::Base
   end
 
   # Collects the properly formatted RFDs from all of this Cases' Rounds
-  def rfds
-    result = []
+  def rfds(side=nil)
+    winning = []
+    losing = []
     self.rounds.each do |round|
-      result << round.format_rfd
+      next if side && round.side.name != side
+      round.win? ? winning << round.format_rfd : losing << round.format_rfd
     end
-    result
+    [winning, losing]
   end
 
   # Deletes the stats of the passed Round from this Case
@@ -57,6 +59,13 @@ class Case < ActiveRecord::Base
         update_attribute(:losses, losses - 1)
         update_attribute(:tight_call_losses,
                          tight_call_losses - 1) if round.tight_call?
+      end
+      if opp_choice?
+        if round.win?
+          round.side.update_attribute(:wins, round.side.wins - 1)
+        else
+          round.side.update_attribute(:losses, round.side.losses - 1)
+        end
       end
       update_attribute(:speaks, speaks - round.speaks)
       update_stats
@@ -99,9 +108,10 @@ class Case < ActiveRecord::Base
       side_stats[:name] = side.name
       if times_defended > 0
         side_stats[:rate_defended] = 100 * times_defended / case_times_run
-        side_stats[:win_percentage] = 100 * side.wins / times_defended unless times_defended = 0
+        side_stats[:win_percentage] = 100 * side.wins / times_defended unless times_defended == 0
       end
-      side_stats[:win_percentage] ||= "NEVER"
+      side_stats[:win_percentage] ||= 0
+      side_stats[:rate_defended] ||= 0
       final_stats << side_stats
     end
     final_stats

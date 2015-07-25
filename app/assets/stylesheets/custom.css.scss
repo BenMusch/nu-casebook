@@ -217,3 +217,57 @@ input {
   padding: 15px;
   border-bottom: 1px solid #e1e1e1;
 }
+
+/* Advanced Search */
+
+.search-cntrls {
+  margin: 10px 0 !important;
+}
+
+#search-form {
+  margin-top: 10px;
+}
+
+/* Cases Show */
+
+// .rfds {
+//   list-style-type: none;
+// }
+
+.stats-panel {
+  padding: 10px;
+  text-align: center;
+  h4 {
+    font-weight: 600;
+    font-size: 30px;
+  }
+  .stat {
+    display: block;
+    width: 20%;
+    float: left;
+  }
+  .stat:not(:first-child) {
+    border-left: 1px solid lightgray;
+    width: 21.25%;
+  }
+  .stat:first-child {
+    width: 15%;
+  }
+}
+
+.rfd {
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.rfd-win {
+  border: 3px solid #5cb85c;
+}
+
+.side {
+  margin-top: 10px;
+  .panel {
+    padding: 10px;
+  }
+}

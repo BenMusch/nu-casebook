@@ -3,7 +3,11 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h1 id="case-title"><%= @case.title %></h1>
+    <h1 id="case-title"><%= @case.title %>
+      <% if @case.opp_choice? %>
+        <span class="label label-info">Opp Choice</label>
+      <% end %>
+    </h1>
     <div class="btn-group">
         <%= link_to "View", @case.link, target: "_blank",
                     class: "btn btn-default" %>
@@ -18,42 +22,13 @@
     <br/><br/>
 
     <p><b>Case statement:</b> <%= @case.case_statement %></p>
-    <p><b>Opp choice?</b> <%= @case.opp_choice? ? "Yes" : "No" %></p>
-    <p><b>Topics:</b></p>
-    <ul>
-      <% @case.topic_names.each do |topic| %>
-        <li><%= topic %></li>
-      <% end %>
-    </ul>
-    <p><b>Times run:</b> <%= @case.wins + @case.losses %></p>
-    <% if @case.wins + @case.losses != 0 %>
-        <p><b>Win percentage:</b> <%= @case.win_percentage %></p>
-        <p><b>Tight call percentage:</b> <%= @case.tight_call_percentage %></p>
-        <% if @case.tight_call_percentage > 0 %>
-          <p><b>Tight call win percentage:</b>
-            <%= @case.tight_call_win_percentage %></p>
-          <p><b>RFDs:</b></p>
-        <% end %>
-        <ul>
-          <% @case.rfds.each do |rfd| %>
-            <li><%= rfd[:text] %></li>
-          <% end %>
-        </ul>
-        <p><b>Seen by:</b></p>
-        <ul>
-          <% @case.viewers.each do |viewer| %>
-            <li><%= viewer.name %></li>
-          <% end %>
-        </ul>
-        <% if @case.opp_choice %>
-          <% @case.opp_choice_stats.each do |stats| %>
-            <h3><%= stats[:name] %></h3>
-            <p><%= "Gov defends this side #{stats[:rate_defended]}%
-             of the time" %></p>
-            <p><%= "Gov wins defending this side #{stats[:win_percentage]}%
-            of the time" %></p>
-          <% end %>
-        <% end %>
+
+    <b>Topics:</b>
+    <% @case.topic_names.each do |topic| %>
+      <div class="label label-default"><%= topic %></div>
     <% end %>
+    <br><br>
+
+    <%= render 'case_stats' %>
   </div>
 </div>
