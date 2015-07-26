@@ -57,4 +57,16 @@ class CaseTest < ActiveSupport::TestCase
   test "accepts valid cases" do
     assert @case.valid?
   end
+
+  test "forces opp choice cases to have sides" do
+    @case.opp_choice = true
+    assert_not @case.valid?
+    @case.sides << Side.new(name: "test")
+    @case.sides << Side.new(name: "test")
+    assert_not @case.valid?
+    @case.sides.clear
+    @case.sides << Side.new(name: "test 1")
+    @case.sides << Side.new(name: "test 2")
+    assert @case.valid?
+  end
 end

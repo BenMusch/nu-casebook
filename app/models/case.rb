@@ -171,7 +171,7 @@ class Case < ActiveRecord::Base
     end
 
     def no_names
-      return true if sides.count == 0
+      return true if sides.size < 2
       sides.each do |side|
         return true if !side.name.present?
       end
@@ -179,7 +179,7 @@ class Case < ActiveRecord::Base
     end
 
     def same_names
-      sides.uniq.length != sides.length
+      sides.map(&:name).uniq.size != sides.map(&:name).size
     end
 
     def force_sides_for_opp_choice
