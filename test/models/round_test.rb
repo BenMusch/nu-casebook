@@ -45,7 +45,11 @@ class RoundTest < ActiveSupport::TestCase
     win_percentages = [100, 100, 67, 50]
     tight_call_percentages = [100, 50, 67, 50]
     tight_call_win_percentages = [100, 100, 50, 50]
-    speaks = [50, 52.5, 50, 50 ]
+    speaks = [50, 52.5, 50, 50]
+    wins = [1, 2, 2, 2]
+    losses = [0, 0, 1, 2]
+    tight_call_wins = [1, 1, 1, 1]
+    tight_call_losses = [0, 0, 1, 1]
     rounds.each_with_index do |round, index|
       round.save
       @case.reload
@@ -57,6 +61,49 @@ class RoundTest < ActiveSupport::TestCase
                       tight_call_win_percentages[index], 1
       assert_in_delta @case.average_speaks,
                       speaks[index], 0.001
+      assert_equal @case.wins, wins[index]
+      assert_equal @case.losses, losses[index]
+      assert_equal @case.tight_call_wins, tight_call_wins[index]
+      assert_equal @case.tight_call_losses, tight_call_losses[index]
+    end
+    @loss_no_tight_call.win = true
+    @loss_no_tight_call.tight_call = true
+    @loss_no_tight_call.speaks = 55.0
+    @loss_no_tight_call.save
+    @case.reload
+    assert_equal @case.wins, 3
+    assert_equal @case.losses, 1
+    assert_equal @case.tight_call_wins, 2
+    assert_equal @case.tight_call_losses, 1
+    assert_in_delta @case.win_percentage, 75.0, 1
+    assert_in_delta @case.tight_call_percentage, 75.0, 1
+    assert_in_delta @case. tight_call_win_percentage, 66.0, 1
+    assert_in_delta @case.average_speaks, 51.25, 0.25
+    rounds.reverse!
+    win_percentages = [67, 100, 100, 0]
+    tight_call_percentages = [66, 50, 100, 0]
+    tight_call_win_percentages = [50, 100, 100, 0]
+    speaks = [50, 52.5, 50, 0]
+    wins = [2, 2, 1, 0]
+    losses = [1, 0, 0, 0]
+    tight_call_wins = [1, 1, 1, 0]
+    tight_call_losses = [1, 0, 0, 0]
+    rounds.each_with_index do |round, index|
+      puts "iteration #{index}"
+      round.destroy
+      @case.reload
+      assert_in_delta @case.win_percentage,
+                      win_percentages[index], 1
+      assert_in_delta @case.tight_call_percentage,
+                      tight_call_percentages[index], 1
+      assert_in_delta @case.tight_call_win_percentage,
+                      tight_call_win_percentages[index], 1
+      assert_in_delta @case.average_speaks,
+                      speaks[index], 0.001
+      assert_equal @case.wins, wins[index]
+      assert_equal @case.losses, losses[index]
+      assert_equal @case.tight_call_wins, tight_call_wins[index]
+      assert_equal @case.tight_call_losses, tight_call_losses[index]
     end
   end
 end

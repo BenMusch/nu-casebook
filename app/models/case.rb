@@ -161,8 +161,8 @@ class Case < ActiveRecord::Base
         tight_call_win_percentage = 100 * tight_call_wins /
                                           tight_calls unless tight_calls == 0
       else
-        average_speaks = win_percentage =
-        tight_call_percentage = tight_call_win_percentage = nil
+        average_speaks = win_percentage = 0
+        tight_call_percentage = tight_call_win_percentage = 0
       end
       update_attribute(:average_speaks,            average_speaks)
       update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
@@ -184,9 +184,6 @@ class Case < ActiveRecord::Base
 
     def force_sides_for_opp_choice
       if opp_choice?
-        puts "this is running"
-        puts no_names
-        puts same_names
         errors.add(:sides, "must have names") if no_names
         errors.add(:sides, "can't have the same name") if same_names
       end

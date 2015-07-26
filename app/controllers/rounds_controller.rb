@@ -12,8 +12,27 @@ class RoundsController < ApplicationController
     @round = Round.new
   end
 
+  def index
+    @case = Case.find(params[:case_id])
+    @rounds = @case.rounds.order("created_at DESC")
+    @rounds = @rounds.paginate(page: params[:page], per_page: 25)
+  end
+
+  def update
+    @round = Round.find(params[:id])
+    if @case.update_attributes(case_params)
+      flash[:success] = "Case updated"
+      redirect_to @round
+    else
+      @case = Case.find(params[:case_id])
+      render 'edit'
+    end
+  end
+
   def edit
     @round = Round.find(params[:id])
+    @case = Case.find(params[:case_id])
+    @side_options = @case.sides.map { |s| [s.name, s.id] }
   end
 
   def get_case
@@ -48,6 +67,11 @@ class RoundsController < ApplicationController
   end
 
   def destroy
+    round = Round.find(params[:id])
+    id = round.case.id
+    round.destroy
+    flash[:success] = "Round deleted"
+    redirect_to case_rounds_path(case_id: id)
   end
 
   private

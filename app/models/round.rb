@@ -6,15 +6,13 @@ class Round < ActiveRecord::Base
   has_many   :viewerings, dependent: :destroy
   has_many   :viewers, through: :viewerings
 
-  validates :case_id, presence: true
   validates :speaks, numericality: { less_than_or_equal_to: 56,
                                      greater_than_or_equal_to: 44 }
   validates :rfd, presence: true, length: { minimum: 10 }
 
-
   after_save     :add_round
-  before_destroy :delete_round
   before_update  :delete_round
+  before_destroy  :delete_round
 
   # Returns a string of the Viewers of this Round, separated by commas
   def viewers_list
@@ -46,6 +44,9 @@ class Round < ActiveRecord::Base
 
     # Deletes this Round's stats from its Case
     def delete_round
-      self.case.delete_round(self)
+      round = Round.new
+      round.assign_attributes(self.attributes)
+      round.assign_attributes(self.changed_attributes)
+      self.case.delete_round(round)
     end
 end

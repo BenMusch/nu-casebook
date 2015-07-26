@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :searches,            only: [:create, :edit, :update, :show]
   resources :cases do
-    resources :rounds, only: [:new, :create, :edit, :update, :destroy]
+    resources :rounds
   end
 end
