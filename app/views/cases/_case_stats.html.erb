@@ -42,9 +42,11 @@
             <h3><%= stats[:name] %></h3>
             <p><%= "Gov defends this side #{stats[:rate_defended]}%
              of the time" %></p>
-            <p><%= "Gov wins defending this side #{stats[:win_percentage]}%
-            of the time" %></p>
-            <%= render 'rfds', rfds: @case.rfds(stats[:name]) %>
+            <% if stats[:rate_defended] > 0 %>
+              <p><%= "Gov wins defending this side #{stats[:win_percentage]}%
+              of the time" %></p>
+              <%= render 'rfds', rfds: @case.rfds(stats[:name]) %>
+            <% end %>
           </div>
         </div>
       <% end %>

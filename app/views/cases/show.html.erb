@@ -13,7 +13,7 @@
                     class: "btn btn-default" %>
         <%= link_to "Edit", edit_case_path(@case),
                     class: "btn btn-default" %>
-        <%= link_to "Add Round", new_round_path(case_id: @case.id),
+        <%= link_to "Add Round", new_case_round_path(case_id: @case.id),
                     class: "btn btn-default" %>
         <%= link_to "Delete", @case, class: "btn btn-default",
                     method: :delete, data: { confirm: "Are you sure?" } %>

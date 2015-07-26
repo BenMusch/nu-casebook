@@ -10,9 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
- *= require font-awesome
- *= require token-input
- *= require token-input-bootstrap3
  */
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "chosen";
+@import "custom.css.scss";

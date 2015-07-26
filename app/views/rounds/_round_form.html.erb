@@ -1,7 +1,5 @@
-<%= form_for @round do |f| %>
+<%= form_for([@case, @round]) do |f| %>
     <%= render 'shared/error_messages', object: @round %>
-
-    <%= f.hidden_field :case_id, value: params[:case_id] %>
 
     <% if @case.opp_choice? %>
       <%= f.label :side_id, "Side the Gov defended", class: "block" %>

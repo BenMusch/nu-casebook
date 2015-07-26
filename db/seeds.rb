@@ -18,7 +18,7 @@ end
 100.times do |n|
   link = "http://www.google.com/#{n}"
   title = "Case Number #{n}"
-  case_statement = "THW Ablolish sex"
+  case_statement = "This is where the case statement would go"
   Case.create!(link:           link,
                title:          title,
                opp_choice:     false,

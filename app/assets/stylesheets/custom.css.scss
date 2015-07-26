@@ -181,7 +181,7 @@ input {
 }
 
 .case-button {
-  margin-top: -3px;
+  margin-top: 10px;
 }
 
 #session_remember_me {
@@ -216,6 +216,9 @@ input {
 .case-row {
   padding: 15px;
   border-bottom: 1px solid #e1e1e1;
+  small {
+    float: right;
+  }
 }
 
 /* Advanced Search */

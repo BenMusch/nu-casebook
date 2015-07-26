@@ -13,6 +13,9 @@ class Case < ActiveRecord::Base
   validates :link, presence: true, url: true,
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
+  validate do
+      force_sides_for_opp_choice
+  end
 
   after_save :delete_sides
 
@@ -165,5 +168,27 @@ class Case < ActiveRecord::Base
       update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
       update_attribute(:tight_call_percentage,     tight_call_percentage)
       update_attribute(:win_percentage,            win_percentage)
+    end
+
+    def no_names
+      return true if sides.count == 0
+      sides.each do |side|
+        return true if !side.name.present?
+      end
+      false
+    end
+
+    def same_names
+      sides.uniq.length != sides.length
+    end
+
+    def force_sides_for_opp_choice
+      if opp_choice?
+        puts "this is running"
+        puts no_names
+        puts same_names
+        errors.add(:sides, "must have names") if no_names
+        errors.add(:sides, "can't have the same name") if same_names
+      end
     end
 end

@@ -2,11 +2,12 @@ class RoundsController < ApplicationController
   before_action :logged_in_user
 
   def new
-    unless params[:case_id]
+    id = params[:case_id]
+    unless id
       flash[:danger] = "You must pick a case before trying to log a round"
       redirect_to 'pick_case'
     end
-    @case = Case.find(params[:case_id])
+    @case = Case.find(id)
     @side_options = @case.sides.map { |s| [s.name, s.id] }
     @round = Round.new
   end
@@ -15,13 +16,24 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
   end
 
+  def get_case
+    id = params[:case_id]
+    if id
+      redirect_to new_case_round_path(case_id: id)
+    else
+      flash[:danger] = "An error occured. Please try again"
+      redirect_to pick_case_path
+    end
+  end
+
   def create
     @round = Round.new(round_params)
     if @round.save
       flash[:success] = "Round added"
       redirect_to case_path(id: @round.case_id)
     else
-      redirect_to new_round_path(@round, case_id: @round.case_id)
+      @case = Case.find(params[:case_id])
+      render 'new'
     end
   end
 

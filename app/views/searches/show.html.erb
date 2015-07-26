@@ -7,10 +7,7 @@
         <p>Sorry, no cases match thoses specifications.</p>
       <% end %>
       <% @cases.each do |a_case| %>
-          <div class="row case-row">
-            <h4><%= link_to a_case.title, a_case %></h4>
-            <span><%= a_case.case_statement %></span>
-          </div>
+        <%= render 'cases/case', a_case: a_case %>
       <% end %>
     </div>
     <%= will_paginate @cases %>

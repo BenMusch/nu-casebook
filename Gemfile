@@ -21,6 +21,7 @@ gem 'font-awesome-rails'
 gem 'coffee-script-source',    '1.8.0'
 gem 'jquery-tokeninput-rails'
 gem 'compass-rails',           '~> 2.0.4'
+gem 'chosen-rails'
 
 group :development, :test do
   gem 'sqlite3'

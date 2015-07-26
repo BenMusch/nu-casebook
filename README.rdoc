@@ -13,9 +13,4 @@ This is a web app to manage the Northeastern Debate casebook. Built using Ruby 2
 == TODO
 
 Back-end:
-* Work out error messages for Round forms
 * Implement Dropbox uploading
-Front-end:
-* Implement Chart.js
-* Improve form usability
-* Make the site actually usable
