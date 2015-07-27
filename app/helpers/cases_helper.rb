@@ -9,7 +9,12 @@ module CasesHelper
     wins == 1 ? result += ("1 win | ") : result += ("#{wins} wins | ")
     losses == 1 ? result += ("1 loss | ") : result += ("#{losses} losses | ")
     tight_calls == 1 ? result += ("1 tight call") : result += ("#{tight_calls} tight calls")
-    result += " | #{a_case.average_speaks} avg. speaks"
+    result += " | #{a_case.average_speaks} avg. speaks" if a_case.average_speaks > 0
     result
+  end
+
+
+  def average_speaks(a_case)
+    a_case.average_speaks > 0 ? a_case.average_speaks : "N/A"
   end
 end

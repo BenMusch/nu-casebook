@@ -7,7 +7,8 @@ class Round < ActiveRecord::Base
   has_many   :viewers, through: :viewerings
 
   validates :speaks, numericality: { less_than_or_equal_to: 56,
-                                     greater_than_or_equal_to: 44 }
+                                     greater_than_or_equal_to: 44,
+                                     allow_blank: true }
   validates :rfd, presence: true, length: { minimum: 10 }
 
   after_save     :add_round

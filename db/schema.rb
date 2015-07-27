@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721222915) do
+ActiveRecord::Schema.define(version: 20150727183036) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150721222915) do
     t.float    "tight_call_percentage",     default: 0.0
     t.float    "tight_call_win_percentage", default: 0.0
     t.float    "average_speaks",            default: 0.0
+    t.integer  "rounds_with_speaks",        default: 0
   end
 
   create_table "excluding_topics", force: :cascade do |t|

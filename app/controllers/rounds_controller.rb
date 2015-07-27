@@ -52,6 +52,7 @@ class RoundsController < ApplicationController
       redirect_to case_path(id: @round.case_id)
     else
       @case = Case.find(params[:case_id])
+      @side_options = @case.sides.map { |s| [s.name, s.id] }
       render 'new'
     end
   end

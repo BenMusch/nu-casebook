@@ -37,7 +37,14 @@ class Case < ActiveRecord::Base
         round.side.update_attribute(:losses, round.side.losses + 1)
       end
     end
-    update_attribute(:speaks, speaks + round.speaks)
+    if round.speaks
+      update_attribute(:speaks, speaks + round.speaks)
+      if rounds_with_speaks
+        update_attribute(:rounds_with_speaks, rounds_with_speaks + 1)
+      else
+        update_attribute(:rounds_with_speaks, 1)
+      end
+    end
     update_stats
   end
 
@@ -70,7 +77,11 @@ class Case < ActiveRecord::Base
           round.side.update_attribute(:losses, round.side.losses - 1)
         end
       end
-      update_attribute(:speaks, speaks - round.speaks)
+
+      if round.speaks
+        update_attribute(:speaks, speaks - round.speaks)
+        update_attribute(:rounds_with_speaks, rounds_with_speaks - 1)
+      end
       update_stats
   end
 
@@ -155,14 +166,18 @@ class Case < ActiveRecord::Base
       times_run = wins + losses
       tight_calls = tight_call_wins + tight_call_losses
       if times_run > 0
-        average_speaks = speaks / times_run
         win_percentage = 100 * wins / times_run
         tight_call_percentage = 100 * tight_calls / times_run
         tight_call_win_percentage = 100 * tight_call_wins /
                                           tight_calls unless tight_calls == 0
       else
-        average_speaks = win_percentage = 0
+        win_percentage = 0
         tight_call_percentage = tight_call_win_percentage = 0
+      end
+      if rounds_with_speaks && rounds_with_speaks > 0
+        average_speaks = speaks / rounds_with_speaks
+      else
+        average_speaks = 0
       end
       update_attribute(:average_speaks,            average_speaks)
       update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
