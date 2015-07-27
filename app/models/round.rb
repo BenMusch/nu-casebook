@@ -3,8 +3,10 @@ class Round < ActiveRecord::Base
 
   belongs_to :side
   belongs_to :case
+  has_many   :memberships, dependent: :destroy
   has_many   :viewerings, dependent: :destroy
   has_many   :viewers, through: :viewerings
+  has_many   :members, through: :memberships
 
   validates :speaks, numericality: { less_than_or_equal_to: 56,
                                      greater_than_or_equal_to: 44,
@@ -23,7 +25,19 @@ class Round < ActiveRecord::Base
   # Sets the Viewers of this Round equal to all the names in the passed string
   def viewers_list=(names)
     self.viewers = names.split(',').map do |n|
-      Viewer.where(name: format_name(n.strip)).first_or_create!
+      Viewer.find_or_create_by(name: format_name(n.strip))
+    end
+  end
+
+  # Returns a string of the Viewers of this Round, separated by commas
+  def members_list
+    names_string(self.members)
+  end
+
+  # Sets the Viewers of this Round equal to all the names in the passed string
+  def members_list=(names)
+    self.members = names.split(',').map do |n|
+      Member.find_or_create_by(name: format_name(n.strip))
     end
   end
 

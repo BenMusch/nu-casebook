@@ -27,6 +27,10 @@
     <%= f.text_field :viewers_list, class: "form-control",
                              placeholder: "Comma-separated list of names" %>
 
+    <%= f.label :members_list, "Who ran the case?" %>
+    <%= f.text_field :members_list, class: "form-control",
+                            placeholder: "Comma-separated list of the names of you and your partner" %>
+
     <%= f.label :reason_for_decision %>
     <%= f.text_area :rfd, class: "form-control" %>
 

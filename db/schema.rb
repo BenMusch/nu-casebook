@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727183036) do
+ActiveRecord::Schema.define(version: 20150727213231) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 20150727183036) do
 
   add_index "including_topics", ["search_id"], name: "index_including_topics_on_search_id"
   add_index "including_topics", ["topic_id"], name: "index_including_topics_on_topic_id"
+
+  create_table "members", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "round_id"
+    t.integer  "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["member_id"], name: "index_memberships_on_member_id"
+  add_index "memberships", ["round_id"], name: "index_memberships_on_round_id"
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "case_id"

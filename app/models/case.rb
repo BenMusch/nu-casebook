@@ -100,7 +100,7 @@ class Case < ActiveRecord::Base
   # Sets the Topics for this Case based on a string of comma-separated names
   def topic_list=(names)
     self.topics = names.split(',').map do |n|
-      Topic.where(name: n.strip).first_or_create!
+      Topic.find_or_create_by(name: n.strip)
     end
   end
 
@@ -179,8 +179,8 @@ class Case < ActiveRecord::Base
       else
         average_speaks = 0
       end
-      update_attribute(:average_speaks,            average_speaks)
       update_attribute(:tight_call_win_percentage, tight_call_win_percentage)
+      update_attribute(:average_speaks,            average_speaks)
       update_attribute(:tight_call_percentage,     tight_call_percentage)
       update_attribute(:win_percentage,            win_percentage)
     end

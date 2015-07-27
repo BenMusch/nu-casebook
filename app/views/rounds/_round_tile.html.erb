@@ -5,6 +5,9 @@
     <span class="label label-info">tight call</span>
     <% end %>
     <p>Speaks: <%= round.speaks %></p>
+    <% if round.members_list.size > 0 %>
+      <p> Run by: <%= round.members_list %></p>
+    <% end %>
     <%= link_to "edit", edit_case_round_path(case_id: round.case.id, id: round.id) %>
     <%= link_to "delete",
         case_round_path(case_id: round.case.id, id: round.id),
