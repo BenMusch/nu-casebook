@@ -2,7 +2,7 @@ class Round < ActiveRecord::Base
   include Helpers
 
   belongs_to :side
-  belongs_to :case
+  belongs_to :case, touch: true
   has_many   :memberships, dependent: :destroy
   has_many   :viewerings, dependent: :destroy
   has_many   :viewers, through: :viewerings

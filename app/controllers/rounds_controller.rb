@@ -16,7 +16,7 @@ class RoundsController < ApplicationController
     @case = Case.find(params[:case_id])
     @rounds = @case.rounds.order("created_at DESC")
     @rounds = @rounds.paginate(page: params[:page], per_page: 25)
-    fresh_when(@rounds, @case)
+    fresh_when([@rounds, @case])
   end
 
   def update
