@@ -22,6 +22,7 @@ class SearchesController < ApplicationController
     @cases = @search.search_cases
     @cases = @cases.paginate(page: params[:page], per_page: 20)
     @cases = @cases.order(params[:sort])
+    fresh_when([@cases, @search])
   end
 
   private

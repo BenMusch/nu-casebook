@@ -90,6 +90,7 @@ GEM
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
+    dalli (2.7.4)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     erubis (2.7.0)
@@ -289,6 +290,7 @@ DEPENDENCIES
   coffee-rails (= 4.1.0)
   coffee-script-source (= 1.8.0)
   compass-rails (~> 2.0.4)
+  dalli
   fog (= 1.23.0)
   font-awesome-rails
   guard-minitest (= 2.3.1)

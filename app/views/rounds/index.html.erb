@@ -3,6 +3,4 @@
 <h1>View Rounds</h1>
 <h2><%= link_to @case.title, @case %></h2>
 
-<% @rounds.each do |round| %>
-  <%= render 'round_tile', round: round %>
-<% end %>
+<%= render @rounds %>

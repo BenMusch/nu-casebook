@@ -1,9 +1,11 @@
-<div class="row case-row">
-  <h4><%= link_to a_case.title, a_case %></h4>
-  <% if a_case.case_statement.length > 135 %>
-    <span><%= a_case.case_statement[0..135] + ". . ." %></span>
-  <% else %>
-    <span><%= a_case.case_statement %></span>
-  <% end %>
-  <small><%= list_stats(a_case) %></small>
-</div>
+<% cache a_case do %>
+  <div class="row case-row">
+    <h4><%= link_to a_case.title, a_case %></h4>
+    <% if a_case.case_statement.length > 135 %>
+      <span><%= a_case.case_statement[0..135] + ". . ." %></span>
+    <% else %>
+      <span><%= a_case.case_statement %></span>
+    <% end %>
+    <small><%= list_stats(a_case) %></small>
+  </div>
+<% end %>

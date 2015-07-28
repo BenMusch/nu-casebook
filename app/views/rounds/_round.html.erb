@@ -1,0 +1,19 @@
+<% cache round do %>
+  <div class="row">
+    <div class="panel panel-default round-tile">
+      <b><%= round.win? ? "Win:" : "Loss" %></b>
+      <% if round.tight_call? %>
+      <span class="label label-info">tight call</span>
+      <% end %>
+      <p>Speaks: <%= round.speaks %></p>
+      <% if round.members_list.size > 0 %>
+        <p> Run by: <%= round.members_list %></p>
+      <% end %>
+      <%= link_to "edit", edit_case_round_path(case_id: round.case.id, id: round.id) %>
+      <%= link_to "delete",
+          case_round_path(case_id: round.case.id, id: round.id),
+          method: :delete,
+          data: { confirm: "Are you sure?" } %>
+    </div>
+  </div>
+<% end %>
