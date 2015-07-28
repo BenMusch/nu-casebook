@@ -1,11 +1,10 @@
-<b>Seen by:</b>
-<% @case.viewers.each do |viewer| %>
-  <div class="label label-default"><%= viewer.name %></div>
-<% end %>
-
-<br><br>
-
 <% if @case.wins + @case.losses != 0 %>
+  <b>Seen by:</b>
+  <% @case.viewers.each do |viewer| %>
+    <div class="label label-default"><%= viewer.name %></div>
+  <% end %>
+
+  <br><br>
   <div class="row">
     <div class="panel panel-default stats-panel">
       <div class="row">
@@ -54,5 +53,6 @@
   <% else %>
     <%= render 'rfds', rfds: @case.rfds %>
   <% end %>
-
+<% else %>
+  <p>No rounds with the case have been logged</p>
 <% end %>

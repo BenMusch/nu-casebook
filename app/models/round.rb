@@ -11,7 +11,8 @@ class Round < ActiveRecord::Base
   validates :speaks, numericality: { less_than_or_equal_to: 56,
                                      greater_than_or_equal_to: 44,
                                      allow_blank: true }
-  validates :rfd, presence: true, length: { minimum: 10 }
+  validates :rfd, length: { minimum: 10,
+                            allow_blank: true }
 
   after_save     :add_round
   before_update  :delete_round
@@ -43,12 +44,16 @@ class Round < ActiveRecord::Base
 
   # Formats the rfd into a hash that contains important info
   def format_rfd
-    rfd_hash = Hash.new
-    rfd_hash[:tight_call] = tight_call?
-    rfd_hash[:win]        = win?
-    rfd_hash[:text]       = rfd
-    rfd_hash[:side]       = side if side
-    rfd_hash
+    if rfd
+      rfd_hash = Hash.new
+      rfd_hash[:tight_call] = tight_call?
+      rfd_hash[:win]        = win?
+      rfd_hash[:text]       = rfd
+      rfd_hash[:side]       = side if side
+      rfd_hash
+    else
+      nil
+    end
   end
 
   private

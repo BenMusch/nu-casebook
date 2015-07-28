@@ -54,7 +54,9 @@ class Case < ActiveRecord::Base
     losing = []
     self.rounds.each do |round|
       next if side && round.side.name != side
-      round.win? ? winning << round.format_rfd : losing << round.format_rfd
+      if round.rfd.length > 1
+        round.win? ? winning << round.format_rfd : losing << round.format_rfd
+      end
     end
     [winning, losing]
   end
