@@ -29,8 +29,6 @@ class RoundTest < ActiveSupport::TestCase
   end
 
   test "should reject blank RFDs" do
-    @round.rfd = "      "
-    assert_not @round.valid?
     @round.rfd = "too short"
     assert_not @round.valid?
   end
