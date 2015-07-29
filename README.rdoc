@@ -1,16 +1,9 @@
 == README
 
-This is a web app to manage the Northeastern Debate casebook. Built using Ruby 2.1.5 and Rails 4.2.2
-
-== Features
-* User account creation and authentication (only allows @husky.neu.edu emails)
-* Creating & editing cases
-* Log rounds for cases & calculate stats, separated by side for opp choice cases
-* Categorize cases into multiple topics
-* Logs the people who have seen a case
-* Advanced searches
+This is a web app to manage the Northeastern Debate casebook. Built using Ruby
+2.1.5 and Rails 4.2.2. It's used to keep track of stats and key information
+about cases and rounds and allow club members to search for cases based on
+specific information. A @husky.neu.edu email is required to log in.
 
 == TODO
-
-Back-end:
-* Implement Dropbox uploading
+* Token fields for Viewers and Topics

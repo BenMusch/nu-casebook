@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  before_action :logged_in_user
+  
   def create
     @search = Search.new(search_params)
     if @search.save
@@ -31,5 +33,13 @@ class SearchesController < ApplicationController
                                      :min_tight_call, :including_topics_list,
                                      :keywords,       :excluding_topics_list,
                                      :max_tight_call, :excluding_viewers_list)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "You must be logged in to view this page"
+        redirect_to login_url
+      end
     end
 end
