@@ -4,8 +4,10 @@
   <%= f.label :title %>
   <%= f.text_field :title, class: "form-control" %>
 
-  <%= f.label :link_to_case %>
-  <%= f.text_field :link, class: "form-control" %>
+  <%= render 'picker', f: f %>
+  <br><br>
+  <%= f.label :link, "Or paste a link to the case" %>
+  <%= f.text_field :link, class: "form-control", id: "link" %>
 
   <%= f.label :case_statement %>
   <%= f.text_area :case_statement, class: "form-control" %>

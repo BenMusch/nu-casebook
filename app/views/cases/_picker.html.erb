@@ -1,0 +1,55 @@
+<script type="text/javascript">
+  function testAlert() {
+    alert('hello');
+  }
+
+  // Use the API Loader script to load google.picker.
+  function onApiLoad() {
+    gapi.load('auth', {'callback': onAuthApiLoad});
+    gapi.load('picker');
+  }
+
+  // Handle the authentication of the users
+  function onAuthApiLoad() {
+    window.gapi.auth.authorize({
+      'client_id': '290418071403-gq1tge4mon2m21asfnqtr5rmdof42j6o.apps.googleusercontent.com',
+      'scope': ['https://www.googleapis.com/auth/drive']
+    }, handleAuthResult);
+  }
+
+  // save the oauth token
+  var oauthToken;
+
+  function handleAuthResult(authResult) {
+    if (authResult && !authResult.error) {
+      oauthToken = authResult.access_token;
+      createPicker();
+    }
+  }
+
+  // Creates the picker
+  function createPicker() {
+    var picker = new google.picker.PickerBuilder()
+    .addView(new google.picker.DocsUploadView())
+    .addView(new google.picker.DocsView())
+    .setOAuthToken(oauthToken)
+    .setDeveloperKey('AIzaSyB2Y2wSSlzJqcgHXtXokGgRdlY4SHXp3V8')
+    .setCallback(pickerCallback)
+    .build();
+    picker.setVisible(true);
+  }
+
+  function pickerCallback(data) {
+    if (data.action == google.picker.Action.PICKED) {
+      var url = data.docs[0].url;
+      document.getElementById('link').setAttribute('value', url);
+    }
+  }
+</script>
+
+<script type="text/javascript" src="https://apis.google.com/js/api.js?onload=loadPicker"></script><br/>
+
+<%= f.label :drive, "Upload or select a file via Google Drive" %><br>
+<div class="btn btn-default" id="gdrive" onclick="javascript:onApiLoad()">
+  <span class="glyphicon glyphicon-open-file"></span> Choose File
+</div>

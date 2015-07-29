@@ -33,7 +33,6 @@ class CasesController < ApplicationController
 
   def show
     @case = Case.find(params[:id])
-    fresh_when @case
   end
 
   def index
@@ -41,7 +40,6 @@ class CasesController < ApplicationController
     @cases = @cases.paginate(page: params[:page], per_page: 20)
     @cases = @cases.order(params[:sort])
     @search = Search.new
-    fresh_when([@cases, @search])
   end
 
   def destroy

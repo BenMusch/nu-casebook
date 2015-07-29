@@ -1,6 +1,7 @@
 class Case < ActiveRecord::Base
   include Helpers
   require 'url_validator'
+  require 'google/api_client'
 
   has_many :rounds,     dependent: :destroy
   has_many :topicings,  dependent: :destroy
@@ -48,19 +49,6 @@ class Case < ActiveRecord::Base
     update_stats
   end
 
-  # Collects the properly formatted RFDs from all of this Cases' Rounds
-  def rfds(side=nil)
-    winning = []
-    losing = []
-    self.rounds.each do |round|
-      next if side && round.side.name != side
-      if round.rfd.length > 1
-        round.win? ? winning << round.format_rfd : losing << round.format_rfd
-      end
-    end
-    [winning, losing]
-  end
-
   # Deletes the stats of the passed Round from this Case
   def delete_round(round)
       if round.win?
@@ -85,6 +73,38 @@ class Case < ActiveRecord::Base
         update_attribute(:rounds_with_speaks, rounds_with_speaks - 1)
       end
       update_stats
+  end
+
+  # Returns stats separated by sides for opp choice cases
+  def opp_choice_stats
+    final_stats = []
+    case_times_run = self.wins + self.losses
+    self.sides.find_each do |side|
+      times_defended = side.wins + side.losses
+      side_stats = Hash.new
+      side_stats[:name] = side.name
+      if times_defended > 0
+        side_stats[:rate_defended] = 100 * times_defended / case_times_run
+        side_stats[:win_percentage] = 100 * side.wins / times_defended unless times_defended == 0
+      end
+      side_stats[:win_percentage] ||= 0
+      side_stats[:rate_defended] ||= 0
+      final_stats << side_stats
+    end
+    final_stats
+  end
+
+  # Collects the properly formatted RFDs from all of this Cases' Rounds
+  def rfds(side=nil)
+    winning = []
+    losing = []
+    self.rounds.each do |round|
+      next if side && round.side.name != side
+      if round.rfd.length > 1
+        round.win? ? winning << round.format_rfd : losing << round.format_rfd
+      end
+    end
+    [winning, losing]
   end
 
   # Returns a string of the names of the Topics this Case has, joined by commas
@@ -114,23 +134,13 @@ class Case < ActiveRecord::Base
     false
   end
 
-  # Returns stats separated by sides for opp choice cases
-  def opp_choice_stats
-    final_stats = []
-    case_times_run = self.wins + self.losses
-    self.sides.find_each do |side|
-      times_defended = side.wins + side.losses
-      side_stats = Hash.new
-      side_stats[:name] = side.name
-      if times_defended > 0
-        side_stats[:rate_defended] = 100 * times_defended / case_times_run
-        side_stats[:win_percentage] = 100 * side.wins / times_defended unless times_defended == 0
-      end
-      side_stats[:win_percentage] ||= 0
-      side_stats[:rate_defended] ||= 0
-      final_stats << side_stats
-    end
-    final_stats
+  # Uses the Google API to upload and get the link to a users' file
+  def drive_file=(file)
+    client = Google::APIClient.new
+    client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
+    client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
+    client.authorization.redirect_uri = ENV['REDIRECT_URI']
+    client.authorization.scope = "https://www.googleapis.com/auth/drive"
   end
 
   # Is this case seen by any of the passed names?

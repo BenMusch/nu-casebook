@@ -31,6 +31,7 @@ textarea {
 
 /* header */
 header {
+  z-index: 999 !important;
   padding: 5px 0;
   nav {
     padding: 0px;
@@ -188,6 +189,8 @@ input {
   width: auto;
   margin-left: 0;
 }
+
+
 
 /* cases index */
 

@@ -23,6 +23,8 @@ gem 'jquery-tokeninput-rails'
 gem 'compass-rails',           '~> 2.0.4'
 gem 'chosen-rails'
 gem 'dalli'
+gem 'google-api-client'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'sqlite3'
