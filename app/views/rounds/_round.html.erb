@@ -1,13 +1,17 @@
 <% cache round do %>
   <div class="row">
     <div class="panel panel-default round-tile">
-      <b><%= round.win? ? "Win:" : "Loss" %></b>
+      <b><%= round.win? ? "Win:" : "Loss" %>
+       <%= "(But the RFD was bullshit and you should've won, Srav)" if current_user.email == "nallaganchu.l@husky.neu.edu" && !round.win? && round.members_list.downcase.include?("srav") %></b>
       <% if round.tight_call? %>
       <span class="label label-info">tight call</span>
       <% end %>
       <p>Speaks: <%= round.speaks %></p>
       <% if round.members_list.present? %>
-        <p> Run by: <%= round.members_list %></p>
+        <p>Run by: <%= round.members_list %></p>
+      <% end %>
+      <% if round.viewers.count > 0 %>
+        <p>Seen by: <%= round.viewers.all.map(&:name).join(', ') %></p>
       <% end %>
       <%= link_to "edit", edit_case_round_path(case_id: round.case.id, id: round.id) %>
       <%= link_to "delete",

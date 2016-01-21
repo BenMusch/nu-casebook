@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   before_action :logged_in_user
-  
+
   def create
     @search = Search.new(search_params)
     if @search.save

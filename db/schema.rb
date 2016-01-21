@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727213231) do
+ActiveRecord::Schema.define(version: 20150921133542) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "title"
@@ -88,9 +88,6 @@ ActiveRecord::Schema.define(version: 20150727213231) do
     t.boolean  "tight_call", default: false
     t.integer  "side_id"
   end
-
-  add_index "rounds", ["case_id"], name: "index_rounds_on_case_id"
-  add_index "rounds", ["side_id"], name: "index_rounds_on_side_id"
 
   create_table "searches", force: :cascade do |t|
     t.string   "keywords"

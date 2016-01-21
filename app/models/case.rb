@@ -156,8 +156,9 @@ class Case < ActiveRecord::Base
   # their title
   def self.search(search)
     if search
-      where([ 'title LIKE ? OR case_statement LIKE ?', "%#{search}%",
-        "%#{search}%" ])
+      where([ 'lower(title) LIKE ? OR lower(case_statement) LIKE ?',
+        "%#{lower(search)}%",
+        "%#{lower(search)}%" ])
     else
       all
     end
