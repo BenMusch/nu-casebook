@@ -23,7 +23,7 @@ gem 'jquery-tokeninput-rails'
 gem 'compass-rails',           '~> 2.0.4'
 gem 'chosen-rails'
 gem 'dalli'
-gem 'google-api-client'
+gem 'google-api-client', '0.8.2', require: 'google/api_client'
 gem 'omniauth-google-oauth2'
 
 group :development, :test do
