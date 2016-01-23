@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'bowlers'                  => 'bowlers#index'
+  post 'bowlers/add_score'       => 'bowlers#post_score'
+  post 'bowlers/create'          => 'bowlers#create'
+
   root                              'application#index'
   get     'signup'               => 'users#new'
   get     'login'                => 'sessions#new'

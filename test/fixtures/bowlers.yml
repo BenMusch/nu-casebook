@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  avg_score: 1.5
+  num_rounds: 1
+
+two:
+  name: MyString
+  avg_score: 1.5
+  num_rounds: 1

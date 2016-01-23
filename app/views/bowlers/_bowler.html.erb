@@ -1,0 +1,10 @@
+<li>
+  <%= bowler.name %> | avg score: <%= bowler.avg_score %> | games: <%= bowler.num_rounds %>
+  add score:
+  <%= form_tag bowlers_add_score_path do %>
+    <%= hidden_field_tag 'id', bowler.id %>
+    <%= number_field_tag 'score' %>
+    <%= submit_tag 'add score' %>
+  <% end %>
+</li>
+<br>
