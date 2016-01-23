@@ -15,6 +15,6 @@ module CasesHelper
 
 
   def average_speaks(a_case)
-    a_case.average_speaks > 0 ? a_case.average_speaks : "N/A"
+    a_case.average_speaks > 0 ? a_case.average_speaks.round(2) : "N/A"
   end
 end
