@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
                         not_seth: true
   validates     :password, presence: true, length: { minimum: 6 }
 
-  enum visibility: [:private, :protected, :public]
+  enum visibility: [:personal, :protected, :public]
   # Callbacks
   before_save   :downcase_email
   before_create :create_activation_digest
