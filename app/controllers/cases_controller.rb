@@ -57,7 +57,6 @@ class CasesController < ApplicationController
   private
     def case_params
       params[:opp_choice] = params[:opp_choice] == '1'
-      params[:visibility] = params[:visibility].to_i
       params.require(:case).permit(:link,       :case_statement,
                                    :title,      :opp_choice, :visibility,
                                    :topic_list, sides_attributes: [:name, :id])

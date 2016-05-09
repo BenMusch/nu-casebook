@@ -12,12 +12,12 @@
   <%= f.label :case_statement %>
   <%= f.text_area :case_statement, class: "form-control" %>
 
-  <%= f.radio_button :visibility, 0 %>
-  <%= f.label :visibility, 'Personal: Only you can view it.', value: 0 %><br>
-  <%= f.radio_button :visibility, 1 %>
-  <%= f.label :visibility, 'Closed: Only users who submitted cases can view it', value: 1 %><br>
-  <%= f.radio_button :visibility, 2 %>
-  <%= f.label :visibility, 'Open: Anyone with an account can use it', value: 2 %><br>
+  <%= f.radio_button :visibility, :personal %>
+  <%= f.label :visibility, 'Personal: Only you can view it.', value: :personal %><br>
+  <%= f.radio_button :visibility, :closed %>
+  <%= f.label :visibility, 'Closed: Only users who submitted cases can view it', value: :closed %><br>
+  <%= f.radio_button :visibility, :open %>
+  <%= f.label :visibility, 'Open: Anyone with an account can use it', value: :open %><br>
 
   <%= f.label :topics %>
   <%= f.text_field :topic_list, class: "form-control",
