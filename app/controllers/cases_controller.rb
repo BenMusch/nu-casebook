@@ -36,7 +36,7 @@ class CasesController < ApplicationController
   end
 
   def index
-    @cases = Case.search(params[:search])
+    @cases = get_cases
     @cases = @cases.paginate(page: params[:page], per_page: 20)
     @cases = @cases.order(params[:sort])
     @search = Search.new
@@ -54,6 +54,12 @@ class CasesController < ApplicationController
       params.require(:case).permit(:link,       :case_statement,
                                    :title,      :opp_choice,
                                    :topic_list, sides_attributes: [:name, :id])
+    end
+
+    def get_cases
+      cases = Case.search(params[:search])
+      visibility = current_user.full_access? ? 1 : 2
+      cases.where("user_id = ? or visibility >= ?", current_user.id, visibility)
     end
 
     def logged_in_user

@@ -28,6 +28,11 @@ class Case < ActiveRecord::Base
     increment_round(round, 1)
   end
 
+  def can_be_viewed_by?(user)
+    return true if self.user_id = user.id
+    user.full_access? ? closed? : open? 
+  end
+
   def increment_round(round, val)
     attr_to_update = round.win? ? :wins : :losses
     update_attribute(attr_to_update, self.public_send(attr_to_update) + val)
