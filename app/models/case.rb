@@ -10,6 +10,8 @@ class Case < ActiveRecord::Base
   has_many :sides,      dependent: :destroy
   belongs_to :user
 
+  enum visibility: [:personal, :closed, :open]
+
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
   validates :link, presence: true, url: true,

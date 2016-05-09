@@ -1,5 +1,6 @@
 class CasesController < ApplicationController
   before_action :logged_in_user
+  before_action :authorized_to_view_case, only: [:edit, :update, :show, :destroy]
 
   def new
     @case = Case.new
@@ -52,7 +53,7 @@ class CasesController < ApplicationController
     def case_params
       params[:opp_choice] = params[:opp_choice] == '1'
       params.require(:case).permit(:link,       :case_statement,
-                                   :title,      :opp_choice,
+                                   :title,      :opp_choice, :visibility,
                                    :topic_list, sides_attributes: [:name, :id])
     end
 
@@ -67,6 +68,13 @@ class CasesController < ApplicationController
         store_location
         flash[:danger] = "You must be logged in to view this page"
         redirect_to login_url
+      end
+    end
+
+    def authorized_to_view_case
+      unless Case.find(params[:id]).can_be_viewed_by?(current_user)
+        flash[:danger] = "You are not authorized to see that case"
+        redirect_to root_path
       end
     end
 end
