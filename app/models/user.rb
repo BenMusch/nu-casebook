@@ -4,11 +4,14 @@ class User < ActiveRecord::Base
   has_many :rounds
   has_many :topicings
   has_many :topics, through: :topicings
+  has_many :cases
   # Validations
   validates     :email, presence: true, length: { maximum: 255 },
                         uniqueness: {case_sensitive: false },
                         not_seth: true
   validates     :password, presence: true, length: { minimum: 6 }
+
+  enum visibility: [:private, :protected, :public]
   # Callbacks
   before_save   :downcase_email
   before_create :create_activation_digest

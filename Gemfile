@@ -25,6 +25,7 @@ gem 'chosen-rails'
 gem 'dalli'
 gem 'google-api-client', '0.8.2', require: 'google/api_client'
 gem 'omniauth-google-oauth2'
+gem 'net-ssh'
 
 group :development, :test do
   gem 'sqlite3'
@@ -43,5 +44,4 @@ group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
   gem 'puma',           '2.11.1'
-  gem 'net-ssh'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123172509) do
+ActiveRecord::Schema.define(version: 20160509184819) do
 
   create_table "bowlers", force: :cascade do |t|
     t.string   "name"
@@ -38,7 +38,11 @@ ActiveRecord::Schema.define(version: 20160123172509) do
     t.float    "tight_call_win_percentage", default: 0.0
     t.float    "average_speaks",            default: 0.0
     t.integer  "rounds_with_speaks",        default: 0
+    t.integer  "visibility",                default: 0
+    t.integer  "user_id"
   end
+
+  add_index "cases", ["user_id"], name: "index_cases_on_user_id"
 
   create_table "excluding_topics", force: :cascade do |t|
     t.integer  "topic_id"

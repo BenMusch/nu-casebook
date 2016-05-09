@@ -8,6 +8,7 @@ class Case < ActiveRecord::Base
   has_many :topics,     through: :topicings
   has_many :viewers,    -> { uniq }, through: :rounds
   has_many :sides,      dependent: :destroy
+  belongs_to :user
 
   validates :title, presence: true, length: { maximum: 100 },
             uniqueness: {case_sensitive: false }
@@ -24,55 +25,30 @@ class Case < ActiveRecord::Base
 
   # Adds the stats of the passed Round to this Cases' attributes
   def add_round(round)
-    if round.win?
-      update_attribute(:wins, wins + 1)
-      update_attribute(:tight_call_wins, tight_call_wins + 1) if round.tight_call?
-    else
-      update_attribute(:losses, losses + 1)
-      update_attribute(:tight_call_losses, tight_call_losses + 1) if round.tight_call?
+    increment_round(round, 1)
+  end
+
+  def increment_round(round, val)
+    attr_to_update = round.win? ? :wins : :losses
+    update_attribute(attr_to_update, self.public_send(attr_to_update) + val)
+    if round.tight_call
+      tight_call_attr = "tight_call_#{attr_to_update}".to_sym
+      update_attribute(tigh_call_attr, self.send(tight_call_attr) + val)
     end
     if opp_choice?
-      if round.win?
-        round.side.update_attribute(:wins, round.side.wins + 1)
-      else
-        round.side.update_attribute(:losses, round.side.losses + 1)
-      end
+      round.side.update_attribute(attr_to_update, round.side.send(attr_to_update) + val)
     end
     if round.speaks
-      update_attribute(:speaks, speaks + round.speaks)
-      if rounds_with_speaks
-        update_attribute(:rounds_with_speaks, rounds_with_speaks + 1)
-      else
-        update_attribute(:rounds_with_speaks, 1)
-      end
+      update_attribute(:speaks, speaks + round.speaks * val)
+      count = rounds_with_speaks || 0
+      update_attribute(:rounds_with_speaks, count + val) if rounds_with_speaks
     end
     update_stats
   end
 
   # Deletes the stats of the passed Round from this Case
   def delete_round(round)
-      if round.win?
-        update_attribute(:wins, wins - 1)
-        update_attribute(:tight_call_wins,
-                         tight_call_wins - 1) if round.tight_call?
-      else
-        update_attribute(:losses, losses - 1)
-        update_attribute(:tight_call_losses,
-                         tight_call_losses - 1) if round.tight_call?
-      end
-      if opp_choice?
-        if round.win?
-          round.side.update_attribute(:wins, round.side.wins - 1)
-        else
-          round.side.update_attribute(:losses, round.side.losses - 1)
-        end
-      end
-
-      if round.speaks
-        update_attribute(:speaks, speaks - round.speaks)
-        update_attribute(:rounds_with_speaks, rounds_with_speaks - 1)
-      end
-      update_stats
+    increment_round(round, -1)
   end
 
   # Returns stats separated by sides for opp choice cases
