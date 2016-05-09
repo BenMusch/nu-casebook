@@ -10,7 +10,6 @@ class CasesController < ApplicationController
   def create
     @case = Case.new(case_params)
     @case.user = current_user
-    params[:visibility] = params[:visibility].to_i
     if @case.save
       flash[:success] = "Case created successfully"
       redirect_to @case
@@ -26,7 +25,6 @@ class CasesController < ApplicationController
 
   def update
     @case = Case.find(params[:id])
-    params[:visibility] = params[:visibility].to_i
     if params[:visibility] != @case.visibility && current_user != @case.user
       flash[:danger] = "You cannot change the visibility of a case that isn't yours."
       redirect_to @case
@@ -59,6 +57,7 @@ class CasesController < ApplicationController
   private
     def case_params
       params[:opp_choice] = params[:opp_choice] == '1'
+      params[:visibility] = params[:visibility].to_i
       params.require(:case).permit(:link,       :case_statement,
                                    :title,      :opp_choice, :visibility,
                                    :topic_list, sides_attributes: [:name, :id])
