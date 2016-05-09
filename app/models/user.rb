@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def full_access?
-    cases.where("visibility != 2").count >= 2
+    cases.where("visibility != 0").count >= 1
   end
 
   # Creates a reset digest for the user
