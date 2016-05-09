@@ -9,6 +9,7 @@ class CasesController < ApplicationController
 
   def create
     @case = Case.new(case_params)
+    @case.user = current_user
     if @case.save
       flash[:success] = "Case created successfully"
       redirect_to @case

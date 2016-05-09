@@ -17,6 +17,7 @@ class Case < ActiveRecord::Base
   validates :link, presence: true, url: true,
             uniqueness: { case_sensitive: true }
   validates :case_statement, presence: true
+  validates :visibility, presence: true
   validate do
       force_sides_for_opp_choice
   end
