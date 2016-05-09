@@ -60,6 +60,14 @@ class User < ActiveRecord::Base
     UserMailer.account_activation(self).deliver_now
   end
 
+  def owner?(kase)
+    kase.user_id == self.id
+  end
+
+  def full_access?
+    cases.where("visibility != 2").count >= 2
+  end
+
   # Creates a reset digest for the user
   def create_reset_digest
     self.reset_token = User.new_token
