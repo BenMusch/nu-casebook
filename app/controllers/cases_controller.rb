@@ -25,6 +25,10 @@ class CasesController < ApplicationController
 
   def update
     @case = Case.find(params[:id])
+    if params[:visibility] != @case.visibility && current_user != @case.user
+      flash[:danger] = "You cannot change the visibility of a case that isn't yours."
+      redirect_to @case
+    end
     if @case.update_attributes(case_params)
       flash[:success] = "Case updated"
       redirect_to @case
