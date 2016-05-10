@@ -23,7 +23,11 @@ class SearchesController < ApplicationController
     @search = Search.find(params[:id])
     @cases = @search.search_cases
     visibility = current_user.full_access? ? 1 : 2
-    @cases = @cases.where("user_id = ? or visibility >= ?", current_user.id, visibility)
+    if current_user.id == 30 || current_user.id == 27
+      @cases = @cases.where("user_id in (27, 30) or visibility >= ?", visibility)
+    else
+      @cases = cases.where("user_id = ? or visibility >= ?", current_user.id, visibility)
+    end
     @cases = @cases.paginate(page: params[:page], per_page: 20)
     @cases = @cases.order(params[:sort])
   end

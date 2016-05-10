@@ -64,7 +64,11 @@ class CasesController < ApplicationController
     def get_cases
       cases = Case.search(params[:search])
       visibility = current_user.full_access? ? 1 : 2
-      cases.where("user_id = ? or visibility >= ?", current_user.id, visibility)
+      if current_user.id == 30 || current_user.id == 27
+        cases.where("user_id in (27, 30) or visibility >= ?", visibility)
+      else
+        cases.where("user_id = ? or visibility >= ?", current_user.id, visibility)
+      end
     end
 
     def logged_in_user
