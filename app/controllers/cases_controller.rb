@@ -43,7 +43,7 @@ class CasesController < ApplicationController
   def index
     @cases = get_cases
     @cases = @cases.paginate(page: params[:page], per_page: 20)
-    @cases = @cases.order(params[:sort])
+    @cases = @cases.order(params[:sort] || {times_run: :desc})
     @search = Search.new
   end
 
